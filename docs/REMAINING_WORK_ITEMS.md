@@ -1,42 +1,63 @@
-# XPChain Web Remaining Work Items
+# XPChain Web 남은 작업
 
 작성일: 2026-02-25  
-상태: Active backlog
+상태: 진행 중
 
-## 1) Wallet QA Finalization
+## 1) Wallet QA 마무리
 
-- [ ] Windows x64 wallet install/sync/send/receive validation
-- [ ] Windows x86 wallet install test on x64 host (호환성 확인)
-- [ ] Linux and macOS validation summaries reflected on website docs page
-- [ ] Final user-facing wallet guide (install, backup, recovery) from internal references
+- [ ] Windows x64 지갑 설치/동기화/입출금 검증 완료
+- [ ] Windows x86 지갑을 x64 PC에서 설치/실행 검증
+- [ ] Linux, macOS 검증 결과를 사이트 문서 페이지에 반영
+- [ ] 사용자용 지갑 가이드 최종본 작성 (설치/백업/복구)
 
-## 2) Content / Docs Completion
+## 2) 콘텐츠/문서 마무리
 
-- [ ] Legacy docs final wording review (Korean first)
-- [ ] Optional English patch pass across major pages
-- [ ] Archive policy decision for old Wix links (if Wix shutdown, remove all legacy outward links)
-- [ ] Publish a concise “history + current operation scope” public-safe statement
+- [ ] 레거시 문서 최종 문구 검수 (한글 우선)
+- [ ] 주요 페이지 영문 패치 최종 점검
+- [ ] Wix 종료 후 레거시 외부 링크 정리 정책 확정
+- [ ] 공개 가능한 범위의 “히스토리 + 현재 운영 범위” 문구 게시
 
-## 3) Network / Explorer Operations
+## 3) 네트워크/익스플로러 운영
 
-- [ ] Confirm network status cache behavior in production (5-minute cache)
-- [ ] Add simple monitoring alert for API failures (`/api/status`, explorer status endpoint)
-- [ ] Final production check for explorer DB-sync banner logic
+- [ ] 프로덕션에서 5분 캐시 동작 최종 확인 (`/api/status`)
+- [ ] API 장애 모니터링 추가 (`/api/status`, explorer 상태 엔드포인트)
+- [ ] 익스플로러 DB 동기화 배너 로직 최종 점검
 
-## 4) Deployment / Infra
+## 4) 배포/인프라
 
-- [ ] Production environment variable checklist document
-- [ ] Deploy/redeploy runbook with rollback steps
-- [ ] Domain transition checklist (Wix sunset -> standalone site DNS/cutover)
+- [ ] 프로덕션 환경변수 체크리스트 문서화
+- [ ] 재배포/롤백 절차(runbook) 문서화
+- [ ] 도메인 전환 체크리스트 확정 (Wix -> 독립 사이트)
 
-## 5) Security / Release Hygiene
+## 5) 보안/릴리즈 위생
 
-- [ ] Verify all wallet download links + SHA256 values on each release
-- [ ] Add release update checklist for wallets page (`vNext`, `stable`, hash, verify commands)
-- [ ] Separate internal sensitive docs from public docs before any future repository opening
+- [ ] 릴리즈마다 지갑 다운로드 링크 + SHA256 검증
+- [ ] Wallet 페이지 업데이트 체크리스트 운영 (`vNext`, `Stable`, 해시, 검증 명령)
+- [ ] 저장소 공개 전 internal 민감 문서 분리 점검
 
-## 6) Nice-to-Have
+## 6) Master Brief 대비 누락 보완
 
-- [ ] Footer/legal text microcopy final review
-- [ ] Accessibility pass (heading hierarchy, focus states, contrast)
-- [ ] Basic analytics/event tracking for download buttons
+- [ ] IA 필수 페이지 누락 여부 최종 점검: Home/Network/Staking/Wallets/Explorer/Build/Community/Docs/Transparency/Notices
+- [ ] `로드맵(Roadmap)` 탭 추가 (공개 가능한 범위, 분기별/반기별 운영 계획)
+- [ ] `블록체인 철학(Philosophy)` 탭 추가 (탈투기, 분산, 검증 가능성, 장기 생존 원칙)
+- [ ] 금지 표현(투자 권유/수익 보장/가격 유도) 전 페이지 최종 스캔
+- [ ] Staking 페이지 “5분 재가동 가이드” OS별 실행 절차 점검
+- [ ] Wallet 페이지 검증 정보(해시/검증 명령) 배치 위치와 가독성 최종 점검
+- [ ] Definition of Done 기준 체크리스트 문서 추가
+
+## 7) 선택 작업 (Nice-to-have)
+
+- [ ] 푸터/법적 고지 문구 미세 조정
+- [ ] 접근성 점검 (헤딩 구조, 포커스 상태, 명도 대비)
+- [ ] 다운로드 버튼 이벤트 트래킹(기본 통계) 추가
+
+## 8) 내비게이션 구조 단순화 (탭 그룹화)
+
+- [ ] 현재 상단 탭/메뉴 개수 진단 및 우선순위 정렬
+- [ ] 그룹 메뉴(예시) 설계
+- [ ] `네트워크` 그룹: Network / Explorer / Transparency
+- [ ] `사용` 그룹: Wallets / Staking / Build
+- [ ] `리소스` 그룹: Docs / Notices / Roadmap / Philosophy
+- [ ] `커뮤니티` 그룹: Community (공지/소통 링크 포함)
+- [ ] 모바일/데스크톱에서 동일한 정보 접근성 유지 검증
+- [ ] 기존 URL 접근 시 리다이렉트/링크 무결성 확인
