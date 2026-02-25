@@ -4,7 +4,7 @@ module.exports = {
       name: "xpchain-web",
       script: "node_modules/next/dist/bin/next",
       args: "start -p 3000",
-      cwd: "/Users/wonkyu/Projects/xpchain-web",
+      cwd: "/home/arnold/xpchain-web",
       env: {
         NODE_ENV: "production",
       },
@@ -12,7 +12,7 @@ module.exports = {
     {
       name: "xpchain-web-monitor",
       script: "scripts/monitor-api-health.mjs",
-      cwd: "/Users/wonkyu/Projects/xpchain-web",
+      cwd: "/home/arnold/xpchain-web",
       env: {
         NODE_ENV: "production",
         MONITOR_BASE_URL: "http://127.0.0.1:3000",
