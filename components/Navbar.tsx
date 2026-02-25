@@ -21,6 +21,7 @@ const navGroups: NavGroup[] = [
     links: [
       { href: '/notices', label: '공지' },
       { href: '/docs', label: '문서' },
+      { href: '/roadmap', label: '로드맵' },
       { href: '/build', label: '빌드' },
       { href: '/community', label: '커뮤니티' },
       { href: '/philosophy', label: '철학' }

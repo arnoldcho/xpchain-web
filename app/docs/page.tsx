@@ -50,6 +50,9 @@ export default function DocsPage() {
             <a href="/philosophy" className="text-accent">
               철학(운영 원칙/투명성) 보기
             </a>
+            <a href="/roadmap" className="text-accent">
+              로드맵 보기
+            </a>
             <a href="/notices" className="text-accent">
               공지/업데이트 보기
             </a>

@@ -38,7 +38,7 @@
 ## 6) Master Brief 대비 누락 보완
 
 - [ ] IA 필수 페이지 누락 여부 최종 점검: Home/Network/Staking/Wallets/Explorer/Build/Community/Docs/Philosophy/Notices
-- [ ] `로드맵(Roadmap)` 탭 추가 (공개 가능한 범위, 분기별/반기별 운영 계획)
+- [x] `로드맵(Roadmap)` 탭 추가 (초안 반영, 공개 범위 기준 운영 항목 정리)
 - [x] `블록체인 철학(Philosophy)` 탭 추가/통합 (`투명성` 내용을 `철학`으로 통합 운영)
 - [ ] 금지 표현(투자 권유/수익 보장/가격 유도) 전 페이지 최종 스캔
 - [ ] Staking 페이지 “5분 재가동 가이드” OS별 실행 절차 점검
@@ -54,12 +54,12 @@
 ## 8) 내비게이션 구조 단순화 (탭 그룹화)
 
 현재 상태: 상단은 핵심 4개 탭(네트워크/지갑/스테이킹/익스플로러), 나머지는 `더보기`로 통합 완료.  
-`투명성`은 `철학`으로 명칭 변경하고 내용도 통합 반영.
+`투명성`은 `철학`으로 명칭/내용 통합 반영했고, `로드맵`도 `더보기`에 추가 완료.
 
 - [x] 현재 상단 탭/메뉴 개수 진단 및 우선순위 정렬
 - [x] 그룹 메뉴(예시) 설계
 - [x] 핵심 탭 고정: Network / Wallets / Staking / Explorer
 - [x] 보조 탭 통합(`더보기`): Notices / Docs / Build / Community / Philosophy
 - [x] 모바일/데스크톱 공통 정보 접근 동선 정리
-- [ ] Roadmap 추가 시 `더보기` 내 위치 확정
+- [x] Roadmap `더보기` 메뉴 반영
 - [x] 기존 `/transparency` 경로 유지/리다이렉트 정책 최종 확정 (`/philosophy`로 이동)
