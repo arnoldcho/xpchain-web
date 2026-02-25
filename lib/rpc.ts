@@ -220,3 +220,7 @@ const getCachedNetworkStatus = unstable_cache(
 export async function getNetworkStatus(): Promise<NetworkStatus> {
   return getCachedNetworkStatus();
 }
+
+export async function getLiveNetworkStatus(): Promise<NetworkStatus> {
+  return getNetworkStatusUncached();
+}

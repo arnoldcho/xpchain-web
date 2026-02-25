@@ -53,11 +53,13 @@
 
 ## 8) 내비게이션 구조 단순화 (탭 그룹화)
 
-- [ ] 현재 상단 탭/메뉴 개수 진단 및 우선순위 정렬
-- [ ] 그룹 메뉴(예시) 설계
-- [ ] `네트워크` 그룹: Network / Explorer / Transparency
-- [ ] `사용` 그룹: Wallets / Staking / Build
+현재 상태: 그룹형 내비게이션은 적용 완료했으며, `리소스` 그룹 내 Roadmap/Philosophy 링크는 페이지 생성 후 추가 예정.
+
+- [x] 현재 상단 탭/메뉴 개수 진단 및 우선순위 정렬
+- [x] 그룹 메뉴(예시) 설계
+- [x] `네트워크` 그룹: Network / Explorer / Transparency
+- [x] `사용` 그룹: Wallets / Staking / Build
 - [ ] `리소스` 그룹: Docs / Notices / Roadmap / Philosophy
-- [ ] `커뮤니티` 그룹: Community (공지/소통 링크 포함)
+- [x] `커뮤니티` 그룹: Community (공지/소통 링크 포함)
 - [ ] 모바일/데스크톱에서 동일한 정보 접근성 유지 검증
 - [ ] 기존 URL 접근 시 리다이렉트/링크 무결성 확인
