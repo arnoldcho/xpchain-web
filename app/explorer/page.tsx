@@ -4,6 +4,8 @@ import { getExplorerDbStatus } from '@/lib/explorer-db';
 import { links } from '@/lib/links';
 import { getNetworkStatus } from '@/lib/rpc';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ExplorerPage() {
   const [status, explorerDbStatus] = await Promise.all([getNetworkStatus(), getExplorerDbStatus()]);
 

@@ -1,9 +1,9 @@
 import { Section } from '@/components/Section';
 import { StatusCard } from '@/components/StatusCard';
 import { formatNumber, formatSeconds } from '@/lib/format';
-import { getNetworkStatus, NETWORK_STATUS_CACHE_SECONDS } from '@/lib/rpc';
+import { getNetworkStatus } from '@/lib/rpc';
 
-export const revalidate = NETWORK_STATUS_CACHE_SECONDS;
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const status = await getNetworkStatus();

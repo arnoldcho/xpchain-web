@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getNetworkStatus, NETWORK_STATUS_CACHE_SECONDS } from '@/lib/rpc';
 
-export const revalidate = NETWORK_STATUS_CACHE_SECONDS;
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   const data = await getNetworkStatus();
