@@ -1,6 +1,4 @@
 import { unstable_cache } from 'next/cache';
-import fs from 'node:fs';
-import path from 'node:path';
 
 type RpcCall = {
   method: string;
@@ -65,67 +63,6 @@ const mockStatus: NetworkStatus = {
   recentBlockIntervals: Array.from({ length: TREND_WINDOW }, (_, index) => 55 + ((index * 7) % 26))
 };
 
-type RpcEnv = {
-  url?: string;
-  user?: string;
-  password?: string;
-};
-
-let cachedRpcEnvFromFile: RpcEnv | null = null;
-
-function loadRpcEnvFromDotEnvFile(): RpcEnv {
-  if (cachedRpcEnvFromFile) {
-    return cachedRpcEnvFromFile;
-  }
-
-  const candidateEnvPaths = [
-    path.join(process.cwd(), '.env'),
-    path.join(process.cwd(), '.env.local'),
-    path.join(process.cwd(), 'xpchain-web', '.env'),
-    path.join(process.cwd(), 'xpchain-web', '.env.local')
-  ];
-  const nextEnv: RpcEnv = {};
-
-  for (const envPath of candidateEnvPaths) {
-    try {
-      if (!fs.existsSync(envPath)) {
-        continue;
-      }
-      const raw = fs.readFileSync(envPath, 'utf8');
-      for (const line of raw.split('\n')) {
-        const trimmed = line.trim();
-        if (!trimmed || trimmed.startsWith('#') || !trimmed.includes('=')) {
-          continue;
-        }
-        const eqIndex = trimmed.indexOf('=');
-        const key = trimmed.slice(0, eqIndex).trim();
-        const value = trimmed.slice(eqIndex + 1).trim().replace(/^['"]|['"]$/g, '');
-
-        if (key === 'XPCHAIN_RPC_URL') nextEnv.url = value;
-        if (key === 'XPCHAIN_RPC_USER') nextEnv.user = value;
-        if (key === 'XPCHAIN_RPC_PASSWORD') nextEnv.password = value;
-      }
-      if (nextEnv.url && nextEnv.user && nextEnv.password) {
-        break;
-      }
-    } catch {
-      // try next candidate path
-    }
-  }
-
-  cachedRpcEnvFromFile = nextEnv;
-  return nextEnv;
-}
-
-function resolveRpcEnv(): RpcEnv {
-  const fileEnv = loadRpcEnvFromDotEnvFile();
-  return {
-    url: process.env.XPCHAIN_RPC_URL ?? fileEnv.url,
-    user: process.env.XPCHAIN_RPC_USER ?? fileEnv.user,
-    password: process.env.XPCHAIN_RPC_PASSWORD ?? fileEnv.password
-  };
-}
-
 function computeStakingEstimate(stakingInfo: StakingInfo | null): number | null {
   if (!stakingInfo) {
     return null;
@@ -161,7 +98,9 @@ function calculateIntervals(blocks: BlockSummary[]): number[] {
 }
 
 async function rpcRequest<T>({ method, params = [] }: RpcCall): Promise<T> {
-  const { url, user, password } = resolveRpcEnv();
+  const url = process.env.XPCHAIN_RPC_URL;
+  const user = process.env.XPCHAIN_RPC_USER;
+  const password = process.env.XPCHAIN_RPC_PASSWORD;
 
   if (!url || !user || !password) {
     throw new Error('Missing RPC environment variables.');
@@ -294,9 +233,8 @@ async function getStatusFromRpc(): Promise<NetworkStatus> {
 function buildFallbackStatusWithLog(error: unknown): NetworkStatus {
   try {
     const message = error instanceof Error ? error.message : String(error);
-    const { url, user, password } = resolveRpcEnv();
     console.error(
-      `[network-status] fallback due to RPC error: ${message} | hasUrl=${Boolean(url)} hasUser=${Boolean(user)} hasPassword=${Boolean(password)} cwd=${process.cwd()}`
+      `[network-status] fallback due to RPC error: ${message} | hasUrl=${Boolean(process.env.XPCHAIN_RPC_URL)} hasUser=${Boolean(process.env.XPCHAIN_RPC_USER)} hasPassword=${Boolean(process.env.XPCHAIN_RPC_PASSWORD)} cwd=${process.cwd()}`
     );
   } catch {
     // keep fallback path resilient
