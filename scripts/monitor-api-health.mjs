@@ -7,6 +7,8 @@
  * If any check fails, sends a failure ping.
  */
 import dns from "node:dns";
+import http from "node:http";
+import https from "node:https";
 
 try {
   // Prevent IPv6-first resolution issues on servers without outbound IPv6.
@@ -58,13 +60,38 @@ async function checkEndpoints() {
   }
 }
 
+function requestWithIpv4(targetUrl, timeoutMs) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(targetUrl);
+    const client = url.protocol === "https:" ? https : http;
+    const req = client.request(
+      url,
+      {
+        method: "GET",
+        family: 4,
+        timeout: timeoutMs,
+      },
+      (res) => {
+        res.resume();
+        resolve(res.statusCode ?? 0);
+      }
+    );
+
+    req.on("timeout", () => {
+      req.destroy(new Error(`timeout after ${timeoutMs}ms`));
+    });
+    req.on("error", reject);
+    req.end();
+  });
+}
+
 async function pingHealthchecks(failed) {
   if (!HC_PING_URL) return;
   const target = failed ? `${HC_PING_URL}/fail` : HC_PING_URL;
   try {
-    const response = await fetchWithTimeout(target, HTTP_TIMEOUT_MS);
-    if (!response.ok) {
-      log(`healthchecks ping failed: HTTP ${response.status}`);
+    const status = await requestWithIpv4(target, HTTP_TIMEOUT_MS);
+    if (status < 200 || status >= 400) {
+      log(`healthchecks ping failed: HTTP ${status}`);
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
