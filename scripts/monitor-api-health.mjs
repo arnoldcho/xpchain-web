@@ -6,6 +6,15 @@
  * Checks configured endpoints and pings Healthchecks.io only when all checks pass.
  * If any check fails, sends a failure ping.
  */
+import dns from "node:dns";
+
+try {
+  // Prevent IPv6-first resolution issues on servers without outbound IPv6.
+  dns.setDefaultResultOrder("ipv4first");
+} catch (error) {
+  const message = error instanceof Error ? error.message : String(error);
+  console.warn(`[monitor-api-health] failed to set DNS result order: ${message}`);
+}
 
 const BASE_URL = process.env.MONITOR_BASE_URL ?? "http://127.0.0.1:3000";
 const STATUS_PATHS = (process.env.MONITOR_PATHS ?? "/api/status,/api/explorer/live")
