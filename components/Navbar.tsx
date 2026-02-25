@@ -23,7 +23,7 @@ const navGroups: NavGroup[] = [
       { href: '/docs', label: '문서' },
       { href: '/build', label: '빌드' },
       { href: '/community', label: '커뮤니티' },
-      { href: '/transparency', label: '투명성' }
+      { href: '/philosophy', label: '철학' }
     ]
   }
 ];

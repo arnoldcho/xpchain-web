@@ -38,7 +38,7 @@ export default function DocsPage() {
           <ul className="mt-2 list-disc space-y-1 pl-5">
             <li>가격/상장/투자 유도보다 분산성과 장기 지속성을 우선합니다.</li>
             <li>스테이킹은 수익 보장 수단이 아니라 네트워크 참여 수단입니다.</li>
-            <li>투명성 원칙과 공지 이력은 사이트 내 페이지에서 계속 갱신됩니다.</li>
+            <li>철학/투명성 원칙과 공지 이력은 사이트 내 페이지에서 계속 갱신됩니다.</li>
           </ul>
           <p className="mt-4 text-text">운영 문서(요약)</p>
           <ul className="mt-2 list-disc space-y-1 pl-5">
@@ -47,8 +47,8 @@ export default function DocsPage() {
             <li>모니터링: 블록 간격, 피어 연결 수, 마지막 블록 시각을 우선 확인</li>
           </ul>
           <div className="mt-4 flex flex-wrap gap-3">
-            <a href="/transparency" className="text-accent">
-              투명성(운영 원칙) 보기
+            <a href="/philosophy" className="text-accent">
+              철학(운영 원칙/투명성) 보기
             </a>
             <a href="/notices" className="text-accent">
               공지/업데이트 보기
