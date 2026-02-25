@@ -12,6 +12,7 @@ export default async function NetworkPage() {
 
   return (
     <>
+      <h1 className="sr-only">네트워크 상태</h1>
       <Section title="네트워크 상태" subtitle="체인은 데이터가 보일 때 신뢰됩니다.">
         <div className="mb-4 flex flex-wrap gap-2 text-xs">
           <span className="rounded border border-line px-2 py-1 text-mute">데이터 소스: {sourceLabel}</span>

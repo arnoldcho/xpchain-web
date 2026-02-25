@@ -1,48 +1,109 @@
 import { Section } from '@/components/Section';
+import { TrackedLink } from '@/components/TrackedLink';
 import { links } from '@/lib/links';
 
 export default function WalletsPage() {
   return (
     <>
+      <h1 className="sr-only">지갑</h1>
       <Section title="지갑" subtitle="공식 다운로드 경로와 보안 권고를 제공합니다.">
         <div className="grid gap-4 md:grid-cols-3">
           <article className="panel p-5">
             <h3 className="text-lg font-semibold text-text">Qt Wallet</h3>
             <p className="mt-2 text-sm text-mute">풀노드 운영과 스테이킹에 적합한 데스크톱 지갑입니다.</p>
             <div className="mt-4 space-y-1 text-sm">
-              <a href={links.walletQtWin64} target="_blank" rel="noreferrer" className="block text-accent">
+              <TrackedLink
+                href={links.walletQtWin64}
+                target="_blank"
+                className="block text-accent"
+                category="wallet_download"
+                eventKey="wallet_qt_win64"
+                sourcePath="/wallets"
+              >
                 Windows 64bit 다운로드
-              </a>
-              <a href={links.walletQtWin32} target="_blank" rel="noreferrer" className="block text-accent">
+              </TrackedLink>
+              <TrackedLink
+                href={links.walletQtWin32}
+                target="_blank"
+                className="block text-accent"
+                category="wallet_download"
+                eventKey="wallet_qt_win32"
+                sourcePath="/wallets"
+              >
                 Windows 32bit 다운로드
-              </a>
-              <a href={links.walletQtMac} target="_blank" rel="noreferrer" className="block text-accent">
+              </TrackedLink>
+              <TrackedLink
+                href={links.walletQtMac}
+                target="_blank"
+                className="block text-accent"
+                category="wallet_download"
+                eventKey="wallet_qt_macos_dmg"
+                sourcePath="/wallets"
+              >
                 macOS 64bit 다운로드
-              </a>
-              <a href={links.walletQtLinux} target="_blank" rel="noreferrer" className="block text-accent">
+              </TrackedLink>
+              <TrackedLink
+                href={links.walletQtLinux}
+                target="_blank"
+                className="block text-accent"
+                category="wallet_download"
+                eventKey="wallet_qt_linux_x64"
+                sourcePath="/wallets"
+              >
                 Linux x86_64 다운로드
-              </a>
-              <a href={links.walletQtReleaseV4} target="_blank" rel="noreferrer" className="block pt-1 text-mute">
+              </TrackedLink>
+              <TrackedLink
+                href={links.walletQtReleaseV4}
+                target="_blank"
+                className="block pt-1 text-mute"
+                category="wallet_download"
+                eventKey="wallet_release_v01704"
+                sourcePath="/wallets"
+              >
                 릴리즈 XPChain Core v0.17.0-4
-              </a>
-              <a href={links.walletQtReleaseV3Stable} target="_blank" rel="noreferrer" className="block text-mute">
+              </TrackedLink>
+              <TrackedLink
+                href={links.walletQtReleaseV3Stable}
+                target="_blank"
+                className="block text-mute"
+                category="wallet_download"
+                eventKey="wallet_release_stable_legacy"
+                sourcePath="/wallets"
+              >
                 릴리즈 목록 (이전/Stable 버전 확인)
-              </a>
+              </TrackedLink>
             </div>
           </article>
           <article className="panel p-5">
             <h3 className="text-lg font-semibold text-text">Web Wallet</h3>
             <p className="mt-2 text-sm text-mute">일상적 사용을 위한 웹 기반 지갑입니다.</p>
-            <a href={links.walletWeb} target="_blank" rel="noreferrer" className="mt-4 inline-block text-sm text-accent">
+            <TrackedLink
+              href={links.walletWeb}
+              target="_blank"
+              className="mt-4 inline-block text-sm text-accent"
+              category="wallet_download"
+              eventKey="wallet_web"
+              sourcePath="/wallets"
+            >
               웹 지갑 열기
-            </a>
+            </TrackedLink>
           </article>
           <article className="panel p-5">
             <h3 className="text-lg font-semibold text-text">Chrome Extension</h3>
-            <p className="mt-2 text-sm text-mute">브라우저에서 빠르게 접근 가능한 확장 지갑입니다.</p>
-            <a href={links.walletExtension} target="_blank" rel="noreferrer" className="mt-4 inline-block text-sm text-accent">
+            <p className="mt-2 text-sm text-mute">
+              브라우저에서 빠르게 접근 가능한 확장 지갑입니다.
+              현재 결제 연동 및 각종 편의기능 업데이트를 진행 중입니다.
+            </p>
+            <TrackedLink
+              href={links.walletExtension}
+              target="_blank"
+              className="mt-4 inline-block text-sm text-accent"
+              category="wallet_download"
+              eventKey="wallet_chrome_extension"
+              sourcePath="/wallets"
+            >
               크롬 웹스토어 열기
-            </a>
+            </TrackedLink>
           </article>
         </div>
       </Section>

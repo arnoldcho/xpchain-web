@@ -11,15 +11,18 @@ const notices = [
 
 export default function NoticesPage() {
   return (
-    <Section title="공지" subtitle="운영 업데이트와 변경 내역을 공유합니다.">
-      <div className="panel divide-y divide-line">
-        {notices.map((item) => (
-          <article key={item.title} className="p-4 text-sm">
-            <p className="text-mute">{item.date}</p>
-            <p className="mt-1 text-text">{item.title}</p>
-          </article>
-        ))}
-      </div>
-    </Section>
+    <>
+      <h1 className="sr-only">공지</h1>
+      <Section title="공지" subtitle="운영 업데이트와 변경 내역을 공유합니다.">
+        <div className="panel divide-y divide-line">
+          {notices.map((item) => (
+            <article key={item.title} className="p-4 text-sm">
+              <p className="text-mute">{item.date}</p>
+              <p className="mt-1 text-text">{item.title}</p>
+            </article>
+          ))}
+        </div>
+      </Section>
+    </>
   );
 }

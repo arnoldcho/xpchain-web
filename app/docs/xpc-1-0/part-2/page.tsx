@@ -3,11 +3,13 @@ import { Section } from '@/components/Section';
 
 export default function XpcPartTwoPage() {
   return (
-    <Section
-      title="XPC 1.0 소개 (2) – ABPoS (Age Burnable PoS)"
-      subtitle="XPC 1.0 Blockchain (2) – Age Burnable PoS"
-    >
-      <div className="space-y-4">
+    <>
+      <h1 className="sr-only">XPC 1.0 소개 (2) ABPoS</h1>
+      <Section
+        title="XPC 1.0 소개 (2) – ABPoS (Age Burnable PoS)"
+        subtitle="XPC 1.0 Blockchain (2) – Age Burnable PoS"
+      >
+        <div className="space-y-4">
         <div className="panel p-5 text-sm text-mute">
           <p className="text-text">목차</p>
           <ol className="mt-2 list-decimal space-y-1 pl-5">
@@ -72,7 +74,8 @@ export default function XpcPartTwoPage() {
             <li>현재 릴리즈/운영 기준은 공지와 릴리즈 노트를 우선 참조해 주세요.</li>
           </ul>
         </div>
-      </div>
-    </Section>
+        </div>
+      </Section>
+    </>
   );
 }

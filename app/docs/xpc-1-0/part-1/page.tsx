@@ -3,8 +3,10 @@ import { Section } from '@/components/Section';
 
 export default function XpcPartOnePage() {
   return (
-    <Section title="XPC 1.0 소개 (1) – 비트코인 0.17.0 기반 PoS" subtitle="XPC 1.0 Blockchain (1) – Based on Bitcoin 0.17.0">
-      <div className="space-y-4">
+    <>
+      <h1 className="sr-only">XPC 1.0 소개 (1) 비트코인 0.17.0 기반 PoS</h1>
+      <Section title="XPC 1.0 소개 (1) – 비트코인 0.17.0 기반 PoS" subtitle="XPC 1.0 Blockchain (1) – Based on Bitcoin 0.17.0">
+        <div className="space-y-4">
         <div className="panel p-5 text-sm text-mute">
           <p className="text-text">목차</p>
           <ol className="mt-2 list-decimal space-y-1 pl-5">
@@ -61,7 +63,8 @@ export default function XpcPartOnePage() {
             <li>투자 유도 목적이 아닌 기술/운영 기록 목적 문서입니다.</li>
           </ul>
         </div>
-      </div>
-    </Section>
+        </div>
+      </Section>
+    </>
   );
 }

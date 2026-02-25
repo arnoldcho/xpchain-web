@@ -23,30 +23,33 @@ const series = [
 
 export default function XpcSeriesPage() {
   return (
-    <Section title="XPC 1.0 시리즈" subtitle="초기 기술 포스팅을 현재 운영 기준으로 재정리한 문서입니다.">
-      <div className="panel p-5 text-sm text-mute">
-        <p className="text-text">시리즈 안내</p>
-        <p className="mt-2">
-          이 시리즈는 초기 작성본의 내용을 보존하면서, 현재 운영 기준과 차이가 있는 항목은 주석으로 분리해 제공합니다.
-        </p>
-      </div>
+    <>
+      <h1 className="sr-only">XPC 1.0 시리즈</h1>
+      <Section title="XPC 1.0 시리즈" subtitle="초기 기술 포스팅을 현재 운영 기준으로 재정리한 문서입니다.">
+        <div className="panel p-5 text-sm text-mute">
+          <p className="text-text">시리즈 안내</p>
+          <p className="mt-2">
+            이 시리즈는 초기 작성본의 내용을 보존하면서, 현재 운영 기준과 차이가 있는 항목은 주석으로 분리해 제공합니다.
+          </p>
+        </div>
 
-      <div className="mt-4 space-y-3">
-        {series.map((item) => (
-          <article key={item.title} className="panel p-5 text-sm text-mute">
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="text-base text-text">{item.title}</p>
-              <span className="rounded border border-line px-2 py-0.5 text-xs">{item.status}</span>
-            </div>
-            <p className="mt-2">{item.description}</p>
-            {item.slug !== '#' ? (
-              <a href={item.slug} className="mt-3 inline-block text-accent">
-                문서 보기
-              </a>
-            ) : null}
-          </article>
-        ))}
-      </div>
-    </Section>
+        <div className="mt-4 space-y-3">
+          {series.map((item) => (
+            <article key={item.title} className="panel p-5 text-sm text-mute">
+              <div className="flex flex-wrap items-center gap-2">
+                <p className="text-base text-text">{item.title}</p>
+                <span className="rounded border border-line px-2 py-0.5 text-xs">{item.status}</span>
+              </div>
+              <p className="mt-2">{item.description}</p>
+              {item.slug !== '#' ? (
+                <a href={item.slug} className="mt-3 inline-block text-accent">
+                  문서 보기
+                </a>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </Section>
+    </>
   );
 }

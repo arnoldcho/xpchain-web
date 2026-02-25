@@ -3,8 +3,10 @@ import { links } from '@/lib/links';
 
 export default function DocsPage() {
   return (
-    <Section title="문서" subtitle="현재 운영 원칙과 아카이브 백서를 함께 제공합니다.">
-      <div className="space-y-4">
+    <>
+      <h1 className="sr-only">문서</h1>
+      <Section title="문서" subtitle="현재 운영 원칙과 아카이브 백서를 함께 제공합니다.">
+        <div className="space-y-4">
         <div className="panel p-5 text-sm text-mute">
           <p className="text-text">XPC 1.0 기술 시리즈 (Archive + 정리본)</p>
           <p className="mt-2">
@@ -89,7 +91,8 @@ export default function DocsPage() {
             </li>
           </ul>
         </div>
-      </div>
-    </Section>
+        </div>
+      </Section>
+    </>
   );
 }

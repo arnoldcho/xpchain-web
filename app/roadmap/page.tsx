@@ -2,8 +2,10 @@ import { Section } from '@/components/Section';
 
 export default function RoadmapPage() {
   return (
-    <Section title="로드맵" subtitle="방향성과 실행 항목을 함께 공개합니다.">
-      <div className="space-y-5 text-sm text-text">
+    <>
+      <h1 className="sr-only">로드맵</h1>
+      <Section title="로드맵" subtitle="방향성과 실행 항목을 함께 공개합니다.">
+        <div className="space-y-5 text-sm text-text">
         <div className="panel p-5 sm:p-6">
           <h3 className="text-lg font-semibold text-text">A. 방향 로드맵 (대외 기준)</h3>
           <p className="mt-3 leading-relaxed text-mute">
@@ -41,8 +43,8 @@ export default function RoadmapPage() {
             <div>
               <p className="font-semibold text-text">4) 실사용 사례 축적</p>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-mute">
-                <li>SmartPig를 포함한 응용 사례 안정적 운영</li>
-                <li>XRoutine 등 참여 기반 구조 정비</li>
+                <li>SmartPig 서비스 운영 안정화 및 결제 연동 준비</li>
+                <li>XRoutine 개발 진행 및 단계별 공개</li>
                 <li>네트워크를 활용하는 다양한 가능성 연구</li>
               </ul>
               <p className="mt-2 text-mute">
@@ -105,7 +107,8 @@ export default function RoadmapPage() {
             조정될 수 있습니다.
           </p>
         </div>
-      </div>
-    </Section>
+        </div>
+      </Section>
+    </>
   );
 }

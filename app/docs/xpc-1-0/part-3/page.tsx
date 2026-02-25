@@ -3,11 +3,13 @@ import { Section } from '@/components/Section';
 
 export default function XpcPartThreePage() {
   return (
-    <Section
-      title="XPC 1.0 소개 (3) – XPC 블록체인 사양"
-      subtitle="XPC 1.0 Blockchain (3) – XPC Specification"
-    >
-      <div className="space-y-4">
+    <>
+      <h1 className="sr-only">XPC 1.0 소개 (3) XPC 블록체인 사양</h1>
+      <Section
+        title="XPC 1.0 소개 (3) – XPC 블록체인 사양"
+        subtitle="XPC 1.0 Blockchain (3) – XPC Specification"
+      >
+        <div className="space-y-4">
         <div className="panel p-5 text-sm text-mute">
           <p className="text-text">목차</p>
           <ol className="mt-2 list-decimal space-y-1 pl-5">
@@ -74,7 +76,8 @@ export default function XpcPartThreePage() {
             보유/운영 상태가 있을 수 있으며, 최신 상태는 온체인 데이터와 최신 공지 기준으로 확인해 주세요.
           </p>
         </div>
-      </div>
-    </Section>
+        </div>
+      </Section>
+    </>
   );
 }

@@ -52,13 +52,14 @@ export default async function HomePage() {
           <article className="panel p-5">
             <h3 className="text-lg font-semibold text-text">SmartPig</h3>
             <p className="mt-2 text-sm text-mute">
-              AI 기반 리서치/브리핑 서비스입니다. XPChain은 선택 가능한 유틸리티 레이어로 활용됩니다.
+              AI 기반 리서치/브리핑 서비스로 핵심 개발은 대부분 마무리되었습니다.
+              XPC 결제는 크롬 확장프로그램의 결제 연동/편의기능 업데이트 이후 순차 반영 예정입니다.
             </p>
           </article>
           <article className="panel p-5">
             <h3 className="text-lg font-semibold text-text">XRoutine</h3>
             <p className="mt-2 text-sm text-mute">
-              루틴 참여 기반 서비스입니다. 가격/거래소 중심이 아닌 내부 참여 구조를 지향합니다.
+              루틴 참여 기반 서비스로 현재 개발 진행 중입니다.
             </p>
           </article>
         </div>

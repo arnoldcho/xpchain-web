@@ -11,6 +11,7 @@ const steps = [
 export default function StakingPage() {
   return (
     <>
+      <h1 className="sr-only">스테이킹</h1>
       <Section title="스테이킹" subtitle="5분 재가동 가이드: 수익 목적이 아닌 분산 기여 중심">
         <ol className="panel list-decimal space-y-3 p-5 pl-10 text-sm text-text">
           {steps.map((step) => (

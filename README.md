@@ -61,6 +61,8 @@ pm2 restart xpchain-web-monitor
 - `XPCHAIN_RPC_TIMEOUT_MS`: RPC 타임아웃(ms)
 - `EXPLORER_DB_STATUS_URL`: 익스플로러 DB 상태 API 주소
 - `EXPLORER_DB_STATUS_TIMEOUT_MS`: 익스플로러 DB 상태 조회 타임아웃(ms)
+- `XPCHAIN_ANALYTICS_DB_PATH`: 클릭 통계 SQLite 파일 경로 (기본: `data/analytics.sqlite3`)
+- `TRACKING_STATS_TOKEN`: 내부 통계 페이지/통계 API 보호용 토큰 (선택)
 
 ## 주요 스크립트
 
@@ -69,6 +71,12 @@ pm2 restart xpchain-web-monitor
 - `npm run start`: 프로덕션 서버 실행
 - `npm run lint`: 린트 실행
 - `npm run monitor:api`: API 상태 모니터 스크립트 실행
+
+## 내부 통계 페이지
+
+- 경로: `/admin/track?days=30`
+- 토큰 보호 사용 시: `/admin/track?days=30&token=YOUR_TOKEN`
+- API 조회: `/api/track/stats?days=30` (토큰 설정 시 `token` 쿼리 필요)
 
 ## 디렉터리 구조
 

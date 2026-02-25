@@ -2,8 +2,10 @@ import { Section } from '@/components/Section';
 
 export default function PhilosophyPage() {
   return (
-    <Section title="철학" subtitle="XPChain이 유지되는 방식과 커뮤니티 운영 원칙">
-      <div className="space-y-4 text-sm text-text">
+    <>
+      <h1 className="sr-only">철학</h1>
+      <Section title="철학" subtitle="XPChain이 유지되는 방식과 커뮤니티 운영 원칙">
+        <div className="space-y-4 text-sm text-text">
         <div className="panel p-5">
           <h2 className="text-lg font-semibold text-text sm:text-xl">존재 이유</h2>
           <div className="mt-3 space-y-2 leading-relaxed text-mute">
@@ -54,11 +56,13 @@ export default function PhilosophyPage() {
         <div className="panel p-5">
           <h2 className="text-lg font-semibold text-text sm:text-xl">XPChain과 응용 서비스</h2>
           <div className="mt-3 space-y-2 leading-relaxed text-mute">
-            <p>SmartPig 및 XRoutine은 XPChain을 활용한 첫 번째 실사용 사례입니다.</p>
+            <p>SmartPig는 핵심 개발이 대부분 완료되었고, XRoutine은 현재 개발 중입니다.</p>
+            <p>SmartPig의 XPC 결제 연동은 크롬 확장프로그램 결제/편의기능 업데이트 이후 적용할 예정입니다.</p>
             <p>XPChain은 특정 서비스에 종속되지 않으며, 여러 응용이 연결될 수 있는 독립 네트워크로 존재합니다.</p>
           </div>
         </div>
-      </div>
-    </Section>
+        </div>
+      </Section>
+    </>
   );
 }
