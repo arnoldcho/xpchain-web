@@ -35,7 +35,7 @@ export default async function NetworkPage() {
         </div>
       </Section>
 
-      <Section title="블록 간격 추이" subtitle="최근 1시간(최근 60개 블록) 생성 간격을 단순하게 보여줍니다.">
+      <Section title="블록 간격 추이" subtitle="최근 1시간 동안의 블록 생성 간격(최근 60개 블록 기준)을 시각화했습니다.">
         <NetworkChart points={status.recentBlockIntervals} />
       </Section>
 

@@ -10,8 +10,7 @@ export default function CommunityPage() {
           <p><a href={links.telegramNotice} target="_blank" rel="noreferrer" className="text-accent">텔레그램 공지 채널</a></p>
           <p><a href={links.telegramChat} target="_blank" rel="noreferrer" className="text-accent">텔레그램 채팅</a></p>
           <p><a href={links.kakaoChannel} target="_blank" rel="noreferrer" className="text-accent">카카오 채널</a></p>
-          <p><a href={links.japanDiscordLanding} target="_blank" rel="noreferrer" className="text-accent">일본 커뮤니티 안내</a></p>
-          <p className="pt-2 text-mute">운영 톤 가이드: 誇張しない。約束しない。続ける。</p>
+          <p><a href={links.japanDiscordLanding} target="_blank" rel="noreferrer" className="text-accent">디스코드(일본)</a></p>
         </div>
       </Section>
     </>

@@ -76,7 +76,7 @@ export default function WalletsPage() {
           </article>
           <article className="panel p-5">
             <h3 className="text-lg font-semibold text-text">Web Wallet</h3>
-            <p className="mt-2 text-sm text-mute">일상적 사용을 위한 웹 기반 지갑입니다.</p>
+            <p className="mt-2 text-sm text-mute">모바일 환경에 최적화되어 빠르고 간편하게 사용할 수 있는 웹 지갑입니다.</p>
             <TrackedLink
               href={links.walletWeb}
               target="_blank"

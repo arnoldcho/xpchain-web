@@ -9,7 +9,7 @@ export function NetworkChart({ points }: NetworkChartProps) {
 
   return (
     <div className="panel p-4">
-      <p className="mb-3 text-sm text-mute">최근 1시간 블록 간격 추이</p>
+      <p className="mb-3 text-sm text-mute">최근 60개 블록 간격 (왼쪽 과거 · 오른쪽 최신)</p>
       <div className="flex h-36 items-end gap-1">
         {points.map((point, index) => {
           const ratio = point / max;

@@ -13,7 +13,7 @@ export default async function ExplorerPage() {
   return (
     <>
       <h1 className="sr-only">익스플로러</h1>
-      <Section title="익스플로러" subtitle="체인 조회용 기본/백업 엔드포인트를 제공합니다.">
+      <Section title="익스플로러" subtitle="블록과 거래 내역을 확인할 수 있는 메인/백업 주소를 제공합니다.">
         <div className="panel space-y-3 p-5 text-sm">
           <ExplorerRealtimeStatus initialStatus={status} initialExplorerDbStatus={explorerDbStatus} />
           <p>
