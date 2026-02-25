@@ -1,4 +1,6 @@
 import { unstable_cache } from 'next/cache';
+import fs from 'node:fs';
+import path from 'node:path';
 
 type RpcCall = {
   method: string;
@@ -40,6 +42,7 @@ export type NetworkStatus = {
 const BLOCK_WINDOW = 60;
 const TREND_WINDOW = 60;
 const DEFAULT_STATUS_CACHE_SECONDS = 300;
+const DEFAULT_RPC_TIMEOUT_MS = 15000;
 const parsedStatusCacheSeconds = Number(process.env.XPCHAIN_STATUS_CACHE_SECONDS ?? DEFAULT_STATUS_CACHE_SECONDS);
 export const NETWORK_STATUS_CACHE_SECONDS = Math.max(
   30,
@@ -61,6 +64,67 @@ const mockStatus: NetworkStatus = {
   generatedAt: new Date().toISOString(),
   recentBlockIntervals: Array.from({ length: TREND_WINDOW }, (_, index) => 55 + ((index * 7) % 26))
 };
+
+type RpcEnv = {
+  url?: string;
+  user?: string;
+  password?: string;
+};
+
+let cachedRpcEnvFromFile: RpcEnv | null = null;
+
+function loadRpcEnvFromDotEnvFile(): RpcEnv {
+  if (cachedRpcEnvFromFile) {
+    return cachedRpcEnvFromFile;
+  }
+
+  const candidateEnvPaths = [
+    path.join(process.cwd(), '.env'),
+    path.join(process.cwd(), '.env.local'),
+    path.join(process.cwd(), 'xpchain-web', '.env'),
+    path.join(process.cwd(), 'xpchain-web', '.env.local')
+  ];
+  const nextEnv: RpcEnv = {};
+
+  for (const envPath of candidateEnvPaths) {
+    try {
+      if (!fs.existsSync(envPath)) {
+        continue;
+      }
+      const raw = fs.readFileSync(envPath, 'utf8');
+      for (const line of raw.split('\n')) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#') || !trimmed.includes('=')) {
+          continue;
+        }
+        const eqIndex = trimmed.indexOf('=');
+        const key = trimmed.slice(0, eqIndex).trim();
+        const value = trimmed.slice(eqIndex + 1).trim().replace(/^['"]|['"]$/g, '');
+
+        if (key === 'XPCHAIN_RPC_URL') nextEnv.url = value;
+        if (key === 'XPCHAIN_RPC_USER') nextEnv.user = value;
+        if (key === 'XPCHAIN_RPC_PASSWORD') nextEnv.password = value;
+      }
+      if (nextEnv.url && nextEnv.user && nextEnv.password) {
+        break;
+      }
+    } catch {
+      // try next candidate path
+    }
+  }
+
+  cachedRpcEnvFromFile = nextEnv;
+  return nextEnv;
+}
+
+function resolveRpcEnv(): RpcEnv {
+  const fileEnv = loadRpcEnvFromDotEnvFile();
+  return {
+    url: process.env.XPCHAIN_RPC_URL ?? fileEnv.url,
+    user: process.env.XPCHAIN_RPC_USER ?? fileEnv.user,
+    password: process.env.XPCHAIN_RPC_PASSWORD ?? fileEnv.password
+  };
+}
 
 function computeStakingEstimate(stakingInfo: StakingInfo | null): number | null {
   if (!stakingInfo) {
@@ -97,15 +161,13 @@ function calculateIntervals(blocks: BlockSummary[]): number[] {
 }
 
 async function rpcRequest<T>({ method, params = [] }: RpcCall): Promise<T> {
-  const url = process.env.XPCHAIN_RPC_URL;
-  const user = process.env.XPCHAIN_RPC_USER;
-  const password = process.env.XPCHAIN_RPC_PASSWORD;
+  const { url, user, password } = resolveRpcEnv();
 
   if (!url || !user || !password) {
     throw new Error('Missing RPC environment variables.');
   }
 
-  const timeoutMs = Number(process.env.XPCHAIN_RPC_TIMEOUT_MS ?? '5000');
+  const timeoutMs = Number(process.env.XPCHAIN_RPC_TIMEOUT_MS ?? DEFAULT_RPC_TIMEOUT_MS);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -142,9 +204,47 @@ async function rpcRequest<T>({ method, params = [] }: RpcCall): Promise<T> {
   }
 }
 
-async function getBlockByHeight(height: number): Promise<BlockSummary> {
-  const hash = await rpcRequest<string>({ method: 'getblockhash', params: [height] });
-  return rpcRequest<BlockSummary>({ method: 'getblock', params: [hash, 1] });
+function chunkArray<T>(items: T[], chunkSize: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < items.length; i += chunkSize) {
+    chunks.push(items.slice(i, i + chunkSize));
+  }
+  return chunks;
+}
+
+async function getBlockTimesByHeights(heights: number[]): Promise<number[]> {
+  const hashByHeight = new Map<number, string>();
+  const timeByHeight = new Map<number, number>();
+
+  for (const chunk of chunkArray(heights, 12)) {
+    const hashes = await Promise.all(chunk.map((height) => rpcRequest<string>({ method: 'getblockhash', params: [height] })));
+    chunk.forEach((height, index) => {
+      hashByHeight.set(height, hashes[index]);
+    });
+  }
+
+  for (const chunk of chunkArray(heights, 12)) {
+    const headers = await Promise.all(
+      chunk.map((height) => {
+        const hash = hashByHeight.get(height);
+        if (!hash) {
+          throw new Error(`Missing block hash at height=${height}`);
+        }
+        return rpcRequest<BlockSummary>({ method: 'getblockheader', params: [hash] });
+      })
+    );
+    chunk.forEach((height, index) => {
+      timeByHeight.set(height, headers[index].time);
+    });
+  }
+
+  return heights.map((height) => {
+    const time = timeByHeight.get(height);
+    if (!time) {
+      throw new Error(`Missing block time at height=${height}`);
+    }
+    return time;
+  });
 }
 
 async function getStatusFromRpc(): Promise<NetworkStatus> {
@@ -156,29 +256,20 @@ async function getStatusFromRpc(): Promise<NetworkStatus> {
     rpcRequest<StakingInfo>({ method: 'getstakinginfo' }).catch(() => null)
   ]);
 
-  const usableWindow = Math.max(1, Math.min(BLOCK_WINDOW, blockHeight));
-  const startHeight = blockHeight - usableWindow;
-
-  const [latestBlock, startBlock] = await Promise.all([
-    getBlockByHeight(blockHeight),
-    getBlockByHeight(startHeight)
-  ]);
-
-  const avgBlockTimeLast60 =
-    latestBlock.time > startBlock.time
-      ? Number(((latestBlock.time - startBlock.time) / usableWindow).toFixed(1))
-      : 60;
-
   const trendStartHeight = Math.max(0, blockHeight - TREND_WINDOW);
-  const trendHeights = Array.from(
-    { length: blockHeight - trendStartHeight + 1 },
-    (_, idx) => trendStartHeight + idx
-  );
-  const trendBlocks = await Promise.all(trendHeights.map((height) => getBlockByHeight(height)));
+  const trendHeights = Array.from({ length: blockHeight - trendStartHeight + 1 }, (_, idx) => trendStartHeight + idx);
+  const blockTimes = await getBlockTimesByHeights(trendHeights);
+
+  const trendBlocks: BlockSummary[] = blockTimes.map((time) => ({ time }));
   const recentBlockIntervals = calculateIntervals(trendBlocks);
 
-  const lastBlockTime = new Date(latestBlock.time * 1000).toISOString();
-  const lagSeconds = Math.max(0, Math.floor(Date.now() / 1000) - latestBlock.time);
+  const usableWindow = Math.max(1, Math.min(BLOCK_WINDOW, recentBlockIntervals.length));
+  const avgSlice = recentBlockIntervals.slice(-usableWindow);
+  const avgBlockTimeLast60 = Number((avgSlice.reduce((sum, sec) => sum + sec, 0) / usableWindow).toFixed(1));
+
+  const latestTime = blockTimes[blockTimes.length - 1];
+  const lastBlockTime = new Date(latestTime * 1000).toISOString();
+  const lagSeconds = Math.max(0, Math.floor(Date.now() / 1000) - latestTime);
   const connections = networkInfo.connections ?? 0;
   const peersCount = peers.length;
   const healthThreshold = Math.max(180, avgBlockTimeLast60 * 4);
@@ -200,27 +291,41 @@ async function getStatusFromRpc(): Promise<NetworkStatus> {
   };
 }
 
-async function getNetworkStatusUncached(): Promise<NetworkStatus> {
+function buildFallbackStatusWithLog(error: unknown): NetworkStatus {
   try {
-    return await getStatusFromRpc();
+    const message = error instanceof Error ? error.message : String(error);
+    const { url, user, password } = resolveRpcEnv();
+    console.error(
+      `[network-status] fallback due to RPC error: ${message} | hasUrl=${Boolean(url)} hasUser=${Boolean(user)} hasPassword=${Boolean(password)} cwd=${process.cwd()}`
+    );
   } catch {
-    return {
-      ...mockStatus,
-      generatedAt: new Date().toISOString()
-    };
+    // keep fallback path resilient
   }
+
+  return {
+    ...mockStatus,
+    generatedAt: new Date().toISOString()
+  };
 }
 
-const getCachedNetworkStatus = unstable_cache(
-  async () => getNetworkStatusUncached(),
+const getCachedRpcStatus = unstable_cache(
+  async () => getStatusFromRpc(),
   ['network-status'],
   { revalidate: NETWORK_STATUS_CACHE_SECONDS }
 );
 
 export async function getNetworkStatus(): Promise<NetworkStatus> {
-  return getCachedNetworkStatus();
+  try {
+    return await getCachedRpcStatus();
+  } catch (error) {
+    return buildFallbackStatusWithLog(error);
+  }
 }
 
 export async function getLiveNetworkStatus(): Promise<NetworkStatus> {
-  return getNetworkStatusUncached();
+  try {
+    return await getStatusFromRpc();
+  } catch (error) {
+    return buildFallbackStatusWithLog(error);
+  }
 }
