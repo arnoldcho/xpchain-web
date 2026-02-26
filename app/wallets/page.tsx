@@ -130,7 +130,13 @@ export default function WalletsPage() {
               Linux x86_64 (tar.gz) SHA256: <span className="text-text">{links.walletQtLinuxTarV4Sha256}</span>
             </p>
             <p className="mt-2 break-all">
-              검증 명령 (macOS/Linux): <span className="text-text">shasum -a 256 파일명</span>
+              검증 명령 (Windows PowerShell): <span className="text-text">Get-FileHash .\파일명 -Algorithm SHA256</span>
+            </p>
+            <p className="mt-1 break-all">
+              검증 명령 (Windows cmd): <span className="text-text">certutil -hashfile 파일명 SHA256</span>
+            </p>
+            <p className="mt-1 break-all">
+              검증 명령 (macOS): <span className="text-text">shasum -a 256 파일명</span>
             </p>
             <p className="mt-1 break-all">
               검증 명령 (Linux): <span className="text-text">sha256sum 파일명</span>
