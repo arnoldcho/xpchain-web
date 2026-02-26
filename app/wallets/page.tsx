@@ -138,6 +138,79 @@ export default function WalletsPage() {
           </div>
         </div>
       </Section>
+
+      <Section title="설치/백업/복구 가이드">
+        <div className="panel p-5 text-sm text-mute space-y-4">
+          <div>
+            <p className="font-medium text-text">1) 설치 (Qt Wallet)</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>먼저 운영체제 비트(64bit/32bit)를 확인하고, 본인 환경에 맞는 빌드를 선택합니다.</li>
+              <li>운영체제에 맞는 공식 빌드를 다운로드하고 SHA256을 먼저 확인합니다.</li>
+              <li>다운로드한 압축 파일을 해제한 뒤 `xpchain-qt` 실행 파일을 직접 실행합니다.</li>
+              <li>macOS는 `.dmg` 파일을 열어 앱을 Applications 폴더로 복사한 뒤 실행합니다.</li>
+              <li>macOS 첫 실행 시 차단 경고가 나오면 시스템 설정 &gt; 개인정보 보호 및 보안에서 `그래도 열기`를 선택합니다.</li>
+              <li>최초 실행 후 데이터 폴더를 생성하고, 동기화 완료까지 충분히 대기합니다.</li>
+              <li>동기화/암호설정/백업이 끝나기 전에는 큰 금액 입금을 피하고 소액으로 먼저 테스트하세요.</li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-medium text-text">2) 암호 설정</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>메뉴에서 지갑 암호화를 설정하고, 추측이 어려운 비밀번호를 사용합니다.</li>
+              <li>비밀번호를 잃어버리면 지갑 복구가 어려울 수 있으므로 오프라인으로 별도 기록해 보관합니다.</li>
+              <li>암호 설정 후 지갑이 재시작되면 잠금 상태/채굴(스테이킹) 상태를 다시 확인합니다.</li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-medium text-text">3) 백업</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>방법 A: 지갑 메뉴의 백업 기능으로 백업 파일을 생성합니다.</li>
+              <li>방법 B: 지갑 종료 후 데이터 폴더의 `wallet.dat`를 직접 복사합니다.</li>
+              <li>Windows 기준 경로 예시: `%APPDATA%\xpchain\wallet.dat`</li>
+              <li>백업 파일은 USB/외장 저장소/비공개 클라우드 등 2곳 이상에 분산 보관하세요.</li>
+              <li>백업 파일명은 날짜를 포함해 관리하면 좋습니다. 예: `wallet_20260226.dat`</li>
+              <li>새 주소를 추가로 생성한 뒤에는 최신 상태를 반영해 다시 백업하는 것을 권장합니다.</li>
+              <li>지갑이 설치된 같은 PC에만 백업을 두는 것은 장애 대비가 되지 않으므로 권장하지 않습니다.</li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-medium text-text">4) 복구</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>복구 전제: 백업된 `wallet.dat` 파일이 반드시 필요합니다.</li>
+              <li>새 PC/환경에 지갑을 설치하고 1회 실행하여 데이터 폴더를 생성한 뒤, 지갑을 종료합니다.</li>
+              <li>Windows 기준으로 데이터 폴더(`%APPDATA%\xpchain`)로 이동해 새로 생성된 `wallet.dat`를 삭제합니다.</li>
+              <li>보관 중인 백업 파일을 같은 폴더에 복사하고 파일명을 `wallet.dat`로 맞춥니다.</li>
+              <li>지갑 재실행 후 동기화가 완료될 때까지 기다리고, 잔액/거래내역을 확인합니다.</li>
+              <li>복구 직후에는 소액 송수신으로 정상 동작을 먼저 검증하는 것을 권장합니다.</li>
+            </ul>
+          </div>
+
+          <div className="rounded-md border border-border bg-bg px-3 py-2 text-xs">
+            <p className="font-medium text-text">Linux 참고</p>
+            <p className="mt-1">
+              Linux는 서비스 운영/노드 중심 절차를 기준으로 별도 정리되어 있습니다.
+            </p>
+            <a
+              href="https://github.com/arnoldcho/xpchain-community-core/blob/master/doc/linux-node-setup-log-vultr.md"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-block text-accent"
+            >
+              linux-node-setup-log-vultr.md 참고
+            </a>
+          </div>
+
+          <div className="rounded-md border border-border bg-bg px-3 py-2 text-xs">
+            <p className="font-medium text-text">주의</p>
+            <p className="mt-1">개인키/시드/지갑 파일/암호는 절대 메신저나 클라우드 평문으로 공유하지 마세요.</p>
+            <p className="mt-1">백업 파일이 없으면 복구가 불가능하며, 비밀번호만으로는 지갑을 복원할 수 없습니다.</p>
+            <p className="mt-1">백신/OS 보안 업데이트가 적용된 신뢰 가능한 PC에서만 지갑 설치/복구를 진행하세요.</p>
+          </div>
+        </div>
+      </Section>
     </>
   );
 }
