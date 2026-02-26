@@ -65,6 +65,30 @@ export default function DocsPage() {
         </div>
 
         <div className="panel p-5 text-sm text-mute">
+          <p className="text-text">v0.17.0-4 릴리스 검증 결과</p>
+          <p className="mt-2">
+            실사용 기준 런타임 스모크 + 지갑 기능(동기화/입출금/재시작) 검증을 완료했습니다.
+          </p>
+          <ul className="mt-3 list-disc space-y-1 pl-5">
+            <li>macOS: PASS</li>
+            <li>Linux (Ubuntu 24.04): PASS</li>
+            <li>Windows x64: PASS</li>
+            <li>Windows x86: PASS</li>
+          </ul>
+          <p className="mt-3">
+            범위: v0.17.0-4 / wallet functional test / restart resilience 포함
+          </p>
+          <a
+            href="https://github.com/arnoldcho/xpchain-community-core/blob/master/doc/release-validation-v0.17.0-4.md"
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block text-accent"
+          >
+            상세 검증 리포트 보기
+          </a>
+        </div>
+
+        <div className="panel p-5 text-sm text-mute">
           <p className="text-text">아카이브 백서 (초기 버전)</p>
           <p className="mt-2">
             아래 문서는 XPChain 초창기 백서입니다. 현재 운영 정책/커뮤니케이션 기준과 일부 차이가 있을 수 있습니다.
