@@ -14,15 +14,15 @@ export const links = {
   walletQtReleaseV3Stable:
     'https://github.com/xpc-wg/xpchain/releases/tag/0.17.0-3',
   walletQtWin64V4Sha256:
-    '0e4278b97e425e44a71efac6a7527cd20f417099bcab85144d76098c547bcc97',
+    '30cfaaaf9a8e7a461d677480d4792126246ce1a252266b18aaf622b7589820b7',
   walletQtWin32V4Sha256:
-    'b0765ffdc58a02854c69285ad4d62786df5eeef06dab879ec59286644046ac33',
+    'd8b5ae9e6ac30fbe07c9c6a307294a6cc1363644ea407c4d525ff2ac319611ba',
   walletQtMacDmgV4Sha256:
-    'abe59ce061df142bb0632ab1818555996c4cab8dee519194cea2f2111c8fe3d7',
+    'ca6a4b70f52d44b4ca675f8f47fbcd3ceca601d497a55c2199065f7571558cec',
   walletQtMacTarV4Sha256:
-    '7417ee142fe0af2d7dbdc4a826430d2910a82debd03ad4ca10ad17534e8b7059',
+    '12a1922977c576fc6f4583d1fb0fe38bef830971cf8751660249f9d6c1c6bdea',
   walletQtLinuxTarV4Sha256:
-    'c09ada6280b26d291ef105c751ba297e608db908b46776767b2130c2c724c169',
+    '87fdbfa018e7da00b948d9b5016fd7b4207cab95a149e9827b3e152632ae50d8',
   walletWeb: 'https://wallet.xpchain.co.kr',
   walletExtension: 'https://chromewebstore.google.com/detail/xpchain-web-wallet/pkaafofiinkaopdaiiamcbpplkfobdpm',
   explorerPrimary: 'https://explorer.xpchain.co.kr/',
