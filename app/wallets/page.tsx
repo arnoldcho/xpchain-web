@@ -169,6 +169,7 @@ export default function WalletsPage() {
               <li>방법 A: 지갑 메뉴의 백업 기능으로 백업 파일을 생성합니다.</li>
               <li>방법 B: 지갑 종료 후 데이터 폴더의 `wallet.dat`를 직접 복사합니다.</li>
               <li>Windows 기준 경로 예시: `%APPDATA%\xpchain\wallet.dat`</li>
+              <li>macOS 기준 경로 예시: `~/Library/Application Support/XPChain/wallet.dat` 또는 `~/Library/Application Support/XPChain/wallets/wallet.dat`</li>
               <li>백업 파일은 USB/외장 저장소/비공개 클라우드 등 2곳 이상에 분산 보관하세요.</li>
               <li>백업 파일명은 날짜를 포함해 관리하면 좋습니다. 예: `wallet_20260226.dat`</li>
               <li>새 주소를 추가로 생성한 뒤에는 최신 상태를 반영해 다시 백업하는 것을 권장합니다.</li>
@@ -182,6 +183,8 @@ export default function WalletsPage() {
               <li>복구 전제: 백업된 `wallet.dat` 파일이 반드시 필요합니다.</li>
               <li>새 PC/환경에 지갑을 설치하고 1회 실행하여 데이터 폴더를 생성한 뒤, 지갑을 종료합니다.</li>
               <li>Windows 기준으로 데이터 폴더(`%APPDATA%\xpchain`)로 이동해 새로 생성된 `wallet.dat`를 삭제합니다.</li>
+              <li>macOS 기준 경로는 환경에 따라 `~/Library/Application Support/XPChain/wallet.dat` 또는 `~/Library/Application Support/XPChain/wallets/wallet.dat`일 수 있습니다.</li>
+              <li>macOS에서도 위 경로의 새로 생성된 `wallet.dat`를 삭제한 뒤 백업 파일로 교체합니다.</li>
               <li>보관 중인 백업 파일을 같은 폴더에 복사하고 파일명을 `wallet.dat`로 맞춥니다.</li>
               <li>지갑 재실행 후 동기화가 완료될 때까지 기다리고, 잔액/거래내역을 확인합니다.</li>
               <li>복구 직후에는 소액 송수신으로 정상 동작을 먼저 검증하는 것을 권장합니다.</li>
