@@ -18,17 +18,23 @@
 ## 2) GitHub 저장소 기본 설정 (수동 적용)
 
 ### Branch protection (`main`)
-- [ ] Require a pull request before merging
-- [ ] Require status checks to pass before merging
-- [ ] Block force pushes (관리자 포함 여부는 운영 정책에 따름)
-- [ ] Restrict who can push to matching branches (필요 시)
+- [x] Require a pull request before merging
+- [x] Require status checks to pass before merging
+- [x] Block force pushes (관리자 포함 여부는 운영 정책에 따름)
+- [x] Restrict who can push to matching branches (필요 시, 현재 단독 운영 기준 미적용)
 
 ### 보안/운영 설정
-- [ ] Private -> Public 전환 전 최종 리뷰자 지정
-- [ ] Security advisories 활성화
-- [ ] Secret scanning 활성화 (가능 플랜에서)
-- [ ] Dependabot alerts/security updates 활성화
-- [ ] Issue/Discussion 정책 확정 (열기/닫기)
+- [x] Private -> Public 전환 전 최종 리뷰자 지정
+- [x] Security advisories 활성화
+- [x] Secret scanning 활성화 (가능 플랜에서)
+- [x] Dependabot alerts/security updates 활성화
+- [x] Issue/Discussion 정책 확정 (열기/닫기)
+
+#### 최종 리뷰 기록
+- 리뷰자: `arnoldcho`
+- 리뷰일: `2026-02-27`
+- 범위: `public 전환`, `branch protection`, `security/dependabot 설정`, `민감 문서 분리/히스토리 정리`
+- 비고: `Secret Protection(Secret scanning 계열)`은 저장소 설정 화면에서 `Enable` 버튼 상태로 남아 있어 필요 시 추가 활성화
 
 ### 저장소 메타
 - [ ] `README` 최신 상태 확인
