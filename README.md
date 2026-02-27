@@ -1,6 +1,7 @@
 # XPChain 웹사이트
 
 XPChain 공식 웹사이트(`www.xpchain.co.kr`) 프로젝트입니다.
+공개 저장소 기준으로 운영되며, 민감 운영 문서는 별도 private 저장소에서 관리합니다.
 
 ## 기술 스택
 
@@ -84,9 +85,8 @@ pm2 restart xpchain-web-monitor
 - `components/`: 공용 UI 컴포넌트
 - `lib/`: 링크/설정/유틸리티
 - `public/`: 정적 에셋(문서, 백서, 이미지)
-- `docs/`: 기획 문서, 내부 노트, 마이그레이션 기록
+- `docs/`: 공개 가능한 운영/개발 문서
 
 ## 참고
 
-- `docs/internal`에 운영 문서가 포함되어 있어 현재 저장소는 비공개 운영을 전제로 합니다.
-- 오픈소스 전환이 필요하면 공개 가능한 문서/코드를 별도 분리하는 방식을 권장합니다.
+- 민감 운영 문서는 별도 private 저장소(`xpchain-web-private-docs`)에서 관리합니다.

@@ -18,26 +18,41 @@
 ## 2) GitHub 저장소 기본 설정 (수동 적용)
 
 ### Branch protection (`main`)
-- [ ] Require a pull request before merging
-- [ ] Require status checks to pass before merging
-- [ ] Block force pushes (관리자 포함 여부는 운영 정책에 따름)
-- [ ] Restrict who can push to matching branches (필요 시)
+- [x] Require a pull request before merging
+- [x] Require status checks to pass before merging
+- [x] Block force pushes (관리자 포함 여부는 운영 정책에 따름)
+- [x] Restrict who can push to matching branches (필요 시, 현재 단독 운영 기준 미적용)
 
 ### 보안/운영 설정
-- [ ] Private -> Public 전환 전 최종 리뷰자 지정
-- [ ] Security advisories 활성화
-- [ ] Secret scanning 활성화 (가능 플랜에서)
-- [ ] Dependabot alerts/security updates 활성화
-- [ ] Issue/Discussion 정책 확정 (열기/닫기)
+- [x] Private -> Public 전환 전 최종 리뷰자 지정
+- [x] Security advisories 활성화
+- [x] Secret scanning 활성화 (가능 플랜에서)
+- [x] Dependabot alerts/security updates 활성화
+- [x] Issue/Discussion 정책 확정 (열기/닫기)
+
+#### 최종 리뷰 기록
+- 리뷰자: `arnoldcho`
+- 리뷰일: `2026-02-27`
+- 범위: `public 전환`, `branch protection`, `security/dependabot 설정`, `민감 문서 분리/히스토리 정리`
+- 비고: `Secret Protection(Secret scanning 계열)`은 저장소 설정 화면에서 `Enable` 버튼 상태로 남아 있어 필요 시 추가 활성화
 
 ### 저장소 메타
-- [ ] `README` 최신 상태 확인
-- [ ] `LICENSE` 추가 여부 확정
-- [ ] 기본 브랜치/기본 라벨/템플릿 정책 확정
+- [x] `README` 최신 상태 확인
+- [x] `LICENSE` 추가 여부 확정
+- [x] 기본 브랜치/기본 라벨/템플릿 정책 확정
+
+메모:
+- 기본 브랜치: `main`
+- 라벨 정책: GitHub 기본 라벨 유지 + 필요 시 운영 중 추가
+- 템플릿: PR 템플릿, Issue 템플릿(`bug`, `feature`) 적용
 
 ## 3) Public 전환 직전 최종 확인
 
-- [ ] `npm run lint` 통과
-- [ ] `npm run build` 통과
-- [ ] 남은 작업 체크리스트 확인 (`REMAINING_WORK_ITEMS.md`)
-- [ ] 공개 시점 공지 문구/릴리즈 노트 준비
+- [x] `npm run lint` 통과
+- [x] `npm run build` 통과
+- [x] 남은 작업 체크리스트 확인 (`REMAINING_WORK_ITEMS.md`)
+- [x] 공개 시점 공지 문구/릴리즈 노트 준비
+
+상태 메모:
+- `REMAINING_WORK_ITEMS.md` 미완료 항목은 현재 `주요 페이지 영문 패치 최종 점검` 1건
+- 공개 공지/릴리즈 노트: `docs/PUBLIC_RELEASE_NOTE_2026-02-27.md`
