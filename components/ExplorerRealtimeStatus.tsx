@@ -97,16 +97,10 @@ export function ExplorerRealtimeStatus({ initialStatus, initialExplorerDbStatus 
     const lagSeconds = Number.isFinite(lastBlockMs) ? Math.max(0, Math.floor((nowMs - lastBlockMs) / 1000)) : 9999;
     const delayedThreshold = Math.max(TIME_LAG_ALERT_MIN_SECONDS, Math.floor(status.avgBlockTimeLast60 * 4));
     const dbLag = explorerDbStatus?.lag ?? 0;
-    const hasDbLagSignal = explorerDbStatus != null;
     const isDbIndexing =
       explorerDbStatus != null &&
       (explorerDbStatus.status === 'indexing' || explorerDbStatus.status === 'syncing') &&
       dbLag > BLOCK_LAG_ALERT_THRESHOLD;
-    const isTimeDelayed = lagSeconds > delayedThreshold;
-    const isBlockDelayed = dbLag > BLOCK_LAG_ALERT_THRESHOLD;
-    const shouldShowDelayedBanner =
-      // If explorer DB lag is available, require both time+block lag to reduce false alarms.
-      (hasDbLagSignal ? isTimeDelayed && isBlockDelayed : isTimeDelayed) || status.nodeHealth === 'degraded';
 
     const nextBanner =
       status.dataSource !== 'rpc'
@@ -115,7 +109,7 @@ export function ExplorerRealtimeStatus({ initialStatus, initialExplorerDbStatus 
             className: 'border-warn/50 bg-warn/10 text-warn',
             message: '실시간 RPC 데이터를 가져오지 못해 임시 데이터로 표시 중입니다. 노드/RPC 상태를 점검해 주세요.'
           }
-        : shouldShowDelayedBanner
+        : lagSeconds > delayedThreshold || status.nodeHealth === 'degraded'
           ? {
               title: '지연',
               className: 'border-warn/50 bg-warn/10 text-warn',
