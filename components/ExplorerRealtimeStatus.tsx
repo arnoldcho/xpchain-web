@@ -130,7 +130,9 @@ export function ExplorerRealtimeStatus({ initialStatus, initialExplorerDbStatus 
   return (
     <>
       <div className={`rounded border px-3 py-2 ${banner.className}`}>
-        <p className="font-semibold">상태: {banner.title}</p>
+        <p className="font-semibold">
+          상태: {banner.title} ({status.blockHeight.toLocaleString()})
+        </p>
         <p className="mt-1">{banner.message}</p>
         <p className="mt-1 text-xs opacity-90">마지막 블록 시각: {formatDateTime(status.lastBlockTime)}</p>
       </div>
