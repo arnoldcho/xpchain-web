@@ -26,7 +26,7 @@ const STATUS_PATHS = (process.env.MONITOR_PATHS ?? "/api/status,/api/explorer/li
 
 const CHECK_INTERVAL_MS = Math.max(
   30_000,
-  Number.parseInt(process.env.MONITOR_INTERVAL_MS ?? "120000", 10) || 120_000
+  Number.parseInt(process.env.MONITOR_INTERVAL_MS ?? "60000", 10) || 60_000
 );
 const HTTP_TIMEOUT_MS = Math.max(
   3_000,
