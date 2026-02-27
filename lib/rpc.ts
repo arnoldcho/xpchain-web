@@ -41,6 +41,7 @@ const BLOCK_WINDOW = 60;
 const TREND_WINDOW = 60;
 const DEFAULT_STATUS_CACHE_SECONDS = 300;
 const DEFAULT_RPC_TIMEOUT_MS = 15000;
+const NODE_HEALTH_MIN_LAG_SECONDS = 300;
 const parsedStatusCacheSeconds = Number(process.env.XPCHAIN_STATUS_CACHE_SECONDS ?? DEFAULT_STATUS_CACHE_SECONDS);
 export const NETWORK_STATUS_CACHE_SECONDS = Math.max(
   30,
@@ -211,7 +212,7 @@ async function getStatusFromRpc(): Promise<NetworkStatus> {
   const lagSeconds = Math.max(0, Math.floor(Date.now() / 1000) - latestTime);
   const connections = networkInfo.connections ?? 0;
   const peersCount = peers.length;
-  const healthThreshold = Math.max(180, avgBlockTimeLast60 * 4);
+  const healthThreshold = Math.max(NODE_HEALTH_MIN_LAG_SECONDS, avgBlockTimeLast60 * 4);
 
   return {
     blockHeight,
