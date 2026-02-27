@@ -60,7 +60,7 @@ export default function WalletsPage() {
                 eventKey="wallet_release_v01704"
                 sourcePath="/wallets"
               >
-                릴리즈 XPChain Core v0.17.0-4
+                vNext (현재 배포): XPChain Core v0.17.0-4
               </TrackedLink>
               <TrackedLink
                 href={links.walletQtReleaseV3Stable}
@@ -70,7 +70,7 @@ export default function WalletsPage() {
                 eventKey="wallet_release_stable_legacy"
                 sourcePath="/wallets"
               >
-                릴리즈 목록 (이전/Stable 버전 확인)
+                Stable (참조 기준): XPChain Core v0.17.0-3
               </TrackedLink>
             </div>
           </article>
@@ -110,6 +110,15 @@ export default function WalletsPage() {
 
       <Section title="보안 체크리스트">
         <div className="panel p-5 text-sm text-mute">
+          <p className="font-medium text-text">릴리즈 채널 기준</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li>
+              `vNext`: 현재 사용자 배포/안내 기준. 본 페이지의 다운로드 링크와 SHA256은 vNext를 기준으로 유지합니다.
+            </li>
+            <li>
+              `Stable`: 롤백/비교 검증 기준. 운영 중 문제가 발생하면 Stable로 회귀 가능한 상태를 유지합니다.
+            </li>
+          </ul>
           <p>지갑 백업과 개인키/시드 문구는 반드시 오프라인 안전 보관을 권장합니다.</p>
           <p className="mt-2">공식 경로에서만 다운로드하고 파일 무결성을 확인하세요.</p>
           <div className="mt-3 rounded-md border border-border bg-bg px-3 py-2 text-xs">
@@ -140,6 +149,9 @@ export default function WalletsPage() {
             </p>
             <p className="mt-1 break-all">
               검증 명령 (Linux): <span className="text-text">sha256sum 파일명</span>
+            </p>
+            <p className="mt-2">
+              운영 체크리스트: <a href="/docs/wallet-release-checklist" className="text-accent">Wallet 업데이트 체크리스트</a>
             </p>
           </div>
         </div>
