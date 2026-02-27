@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export default async function HomePage() {
   const status = await getNetworkStatus();
   const healthLabel = status.nodeHealth === 'healthy' ? '정상' : '점검 필요';
-  const dataSourceLabel = status.dataSource === 'rpc' ? 'RPC(최대 5분 캐시)' : '임시 데이터';
+  const dataSourceLabel = status.dataSource === 'rpc' ? 'RPC(최대 1분 캐시)' : '임시 데이터';
 
   return (
     <>

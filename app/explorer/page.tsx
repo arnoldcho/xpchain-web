@@ -42,7 +42,7 @@ export default async function ExplorerPage() {
               scan.xpchain.co.kr
             </TrackedLink>
           </p>
-          <p className="text-mute">데이터 기준: /api/status (최대 5분 캐시, 최근 블록 시각/평균 블록 간격/노드 상태)</p>
+          <p className="text-mute">데이터 기준: /api/status (최대 1분 캐시, 최근 블록 시각/평균 블록 간격/노드 상태)</p>
         </div>
       </Section>
     </>

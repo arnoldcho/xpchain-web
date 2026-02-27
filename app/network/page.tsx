@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function NetworkPage() {
   const status = await getNetworkStatus();
-  const sourceLabel = status.dataSource === 'rpc' ? 'RPC 데이터(최대 5분 캐시)' : '임시 데이터(폴백)';
+  const sourceLabel = status.dataSource === 'rpc' ? 'RPC 데이터(최대 1분 캐시)' : '임시 데이터(폴백)';
 
   return (
     <>
