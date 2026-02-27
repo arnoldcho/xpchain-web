@@ -58,6 +58,9 @@ export default function DocsPage() {
             <a href="/docs/wallet-release-checklist" className="text-accent">
               Wallet 업데이트 체크리스트
             </a>
+            <a href="/docs/definition-of-done-checklist" className="text-accent">
+              Definition of Done 체크리스트
+            </a>
             <a href="/notices" className="text-accent">
               공지/업데이트 보기
             </a>
