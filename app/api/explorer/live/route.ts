@@ -33,7 +33,7 @@ export async function GET() {
     {
       status: 200,
       headers: {
-        'Cache-Control': `public, max-age=${EXPLORER_LIVE_CACHE_SECONDS}, s-maxage=${EXPLORER_LIVE_CACHE_SECONDS}, stale-while-revalidate=15`
+        'Cache-Control': `s-maxage=${EXPLORER_LIVE_CACHE_SECONDS}, stale-while-revalidate=15`
       }
     }
   );

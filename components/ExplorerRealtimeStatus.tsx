@@ -44,7 +44,7 @@ async function fetchLiveExplorerPayload(): Promise<LiveExplorerPayload | null> {
 
   inflightLiveFetch = (async () => {
     try {
-      const response = await fetch('/api/explorer/live', { cache: 'force-cache' });
+      const response = await fetch('/api/explorer/live', { cache: 'no-store' });
       if (!response.ok) {
         return null;
       }
