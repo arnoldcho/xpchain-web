@@ -37,9 +37,14 @@
 - 비고: `Secret Protection(Secret scanning 계열)`은 저장소 설정 화면에서 `Enable` 버튼 상태로 남아 있어 필요 시 추가 활성화
 
 ### 저장소 메타
-- [ ] `README` 최신 상태 확인
-- [ ] `LICENSE` 추가 여부 확정
-- [ ] 기본 브랜치/기본 라벨/템플릿 정책 확정
+- [x] `README` 최신 상태 확인
+- [x] `LICENSE` 추가 여부 확정
+- [x] 기본 브랜치/기본 라벨/템플릿 정책 확정
+
+메모:
+- 기본 브랜치: `main`
+- 라벨 정책: GitHub 기본 라벨 유지 + 필요 시 운영 중 추가
+- 템플릿: PR 템플릿, Issue 템플릿(`bug`, `feature`) 적용
 
 ## 3) Public 전환 직전 최종 확인
 
