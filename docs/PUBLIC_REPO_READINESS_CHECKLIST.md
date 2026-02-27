@@ -48,7 +48,11 @@
 
 ## 3) Public 전환 직전 최종 확인
 
-- [ ] `npm run lint` 통과
-- [ ] `npm run build` 통과
-- [ ] 남은 작업 체크리스트 확인 (`REMAINING_WORK_ITEMS.md`)
-- [ ] 공개 시점 공지 문구/릴리즈 노트 준비
+- [x] `npm run lint` 통과
+- [x] `npm run build` 통과
+- [x] 남은 작업 체크리스트 확인 (`REMAINING_WORK_ITEMS.md`)
+- [x] 공개 시점 공지 문구/릴리즈 노트 준비
+
+상태 메모:
+- `REMAINING_WORK_ITEMS.md` 미완료 항목은 현재 `주요 페이지 영문 패치 최종 점검` 1건
+- 공개 공지/릴리즈 노트: `docs/PUBLIC_RELEASE_NOTE_2026-02-27.md`
