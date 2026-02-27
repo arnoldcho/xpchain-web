@@ -6,3 +6,8 @@ out
 .env*
 !.env.example
 data/*.sqlite3
+
+# Internal/private docs must stay out of public repository.
+docs/internal/
+docs/old/
+docs/XPCHAIN_WEB_DEV_MASTER_BRIEF.md

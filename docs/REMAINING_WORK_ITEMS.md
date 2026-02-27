@@ -33,7 +33,7 @@
 
 - [x] 릴리즈마다 지갑 다운로드 링크 + SHA256 검증
 - [x] Wallet 페이지 업데이트 체크리스트 운영 (`vNext`, `Stable`, 해시, 검증 명령)
-- [ ] 저장소 공개 전 internal 민감 문서 분리 점검
+- [x] 저장소 공개 전 internal 민감 문서 분리 점검
 
 ## 6) Master Brief 대비 누락 보완
 
