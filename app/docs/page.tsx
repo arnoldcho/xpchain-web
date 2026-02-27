@@ -65,6 +65,37 @@ export default function DocsPage() {
         </div>
 
         <div className="panel p-5 text-sm text-mute">
+          <p className="text-text">히스토리 + 현재 운영 범위</p>
+          <p className="mt-2">
+            XPChain 사이트는 초기 문서(아카이브)와 현재 운영 기준을 함께 공개합니다. 다만 현재 의사결정과 운영 기준은
+            공지/운영 문서/온체인 데이터 기준으로 최신화된 항목을 우선합니다.
+          </p>
+          <p className="mt-4 text-text">공개 범위 (포함)</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li>기술 아카이브 문서 및 릴리즈 검증 결과</li>
+            <li>운영 정책/가이드(지갑, 스테이킹, 네트워크 상태 안내)</li>
+            <li>공지 이력, 로드맵, 익스플로러 기반 공개 운영 정보</li>
+          </ul>
+          <p className="mt-4 text-text">비공개 범위 (제외)</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            <li>내부 보안 문서, 인프라 민감 설정값, 접근 제어 정보</li>
+            <li>개인 식별 정보 및 외부 공개 동의가 없는 운영 기록</li>
+            <li>검증되지 않은 추정/의견성 이슈 기록</li>
+          </ul>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a href="/notices" className="text-accent">
+              공지/업데이트 기준 보기
+            </a>
+            <a href="/roadmap" className="text-accent">
+              로드맵(현재 운영 범위) 보기
+            </a>
+            <a href="/philosophy" className="text-accent">
+              철학(운영 원칙/투명성) 보기
+            </a>
+          </div>
+        </div>
+
+        <div className="panel p-5 text-sm text-mute">
           <p className="text-text">v0.17.0-4 릴리스 검증 결과</p>
           <p className="mt-2">
             실사용 기준 런타임 스모크 + 지갑 기능(동기화/입출금/재시작) 검증을 완료했습니다.
