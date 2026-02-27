@@ -23,16 +23,6 @@ type LiveExplorerPayload = {
 let lastLiveFetchAt = 0;
 let inflightLiveFetch: Promise<LiveExplorerPayload | null> | null = null;
 
-function shouldRefreshImmediately(status: NetworkStatus, explorerDbStatus: ExplorerDbStatus | null) {
-  const isRpcStale = status.dataSource !== 'rpc' || status.nodeHealth === 'degraded';
-  const dbLag = explorerDbStatus?.lag ?? 0;
-  const isDbIndexing =
-    explorerDbStatus != null &&
-    (explorerDbStatus.status === 'indexing' || explorerDbStatus.status === 'syncing') &&
-    dbLag > BLOCK_LAG_ALERT_THRESHOLD;
-  return isRpcStale || isDbIndexing;
-}
-
 async function fetchLiveExplorerPayload(): Promise<LiveExplorerPayload | null> {
   const now = Date.now();
   if (inflightLiveFetch) {
@@ -81,13 +71,32 @@ export function ExplorerRealtimeStatus({ initialStatus, initialExplorerDbStatus 
       setExplorerDbStatus(payload.explorerDbStatus);
     };
 
-    if (shouldRefreshImmediately(initialStatus, initialExplorerDbStatus)) {
+    // Always attempt an immediate refresh on mount so live data does not wait up to 60s.
+    refresh();
+
+    // If the tab becomes visible again, refresh immediately instead of waiting for next interval tick.
+    const handleVisibilityOrFocus = () => {
+      if (!mounted) return;
       refresh();
+    };
+
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', handleVisibilityOrFocus);
     }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('focus', handleVisibilityOrFocus);
+    }
+
     const timer = setInterval(refresh, REFRESH_INTERVAL_MS);
     return () => {
       mounted = false;
       clearInterval(timer);
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
+      }
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('focus', handleVisibilityOrFocus);
+      }
     };
   }, [initialExplorerDbStatus, initialStatus]);
 
