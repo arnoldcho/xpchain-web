@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import sqlite3 from 'sqlite3';
+import readline from 'node:readline';
 
 export type TrackEventCategory = 'wallet_download' | 'explorer_outbound';
 
@@ -17,9 +17,9 @@ export type TrackEventStatRow = {
   hits: number;
 };
 
-const DB_PATH = process.env.XPCHAIN_ANALYTICS_DB_PATH ?? path.join(process.cwd(), 'data', 'analytics.sqlite3');
+const DB_PATH = process.env.XPCHAIN_ANALYTICS_DB_PATH ?? path.join(process.cwd(), 'data', 'analytics-events.jsonl');
+type EventLogRecord = TrackEventInput & { createdAt: string };
 
-let dbPromise: Promise<sqlite3.Database> | null = null;
 let initPromise: Promise<void> | null = null;
 
 function ensureDbDirectory() {
@@ -27,48 +27,9 @@ function ensureDbDirectory() {
   fs.mkdirSync(dbDir, { recursive: true });
 }
 
-function openDatabase(): Promise<sqlite3.Database> {
-  if (dbPromise) {
-    return dbPromise;
-  }
-
+async function appendRecord(record: EventLogRecord): Promise<void> {
   ensureDbDirectory();
-
-  dbPromise = new Promise((resolve, reject) => {
-    const db = new sqlite3.Database(DB_PATH, (error) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      resolve(db);
-    });
-  });
-
-  return dbPromise;
-}
-
-async function run(db: sqlite3.Database, sql: string, params: unknown[] = []): Promise<void> {
-  await new Promise<void>((resolve, reject) => {
-    db.run(sql, params, (error) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      resolve();
-    });
-  });
-}
-
-async function all<T>(db: sqlite3.Database, sql: string, params: unknown[] = []): Promise<T[]> {
-  return new Promise<T[]>((resolve, reject) => {
-    db.all(sql, params, (error, rows) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      resolve((rows ?? []) as T[]);
-    });
-  });
+  await fs.promises.appendFile(DB_PATH, `${JSON.stringify(record)}\n`, 'utf8');
 }
 
 export async function initAnalyticsDb(): Promise<void> {
@@ -77,20 +38,10 @@ export async function initAnalyticsDb(): Promise<void> {
   }
 
   initPromise = (async () => {
-    const db = await openDatabase();
-    await run(
-      db,
-      `CREATE TABLE IF NOT EXISTS event_logs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        category TEXT NOT NULL,
-        event_key TEXT NOT NULL,
-        target_url TEXT NOT NULL,
-        source_path TEXT NOT NULL,
-        created_at TEXT NOT NULL DEFAULT (datetime('now'))
-      )`
-    );
-    await run(db, 'CREATE INDEX IF NOT EXISTS idx_event_logs_key_time ON event_logs (event_key, created_at)');
-    await run(db, 'CREATE INDEX IF NOT EXISTS idx_event_logs_category_time ON event_logs (category, created_at)');
+    ensureDbDirectory();
+    if (!fs.existsSync(DB_PATH)) {
+      await fs.promises.writeFile(DB_PATH, '', 'utf8');
+    }
   })();
 
   return initPromise;
@@ -98,26 +49,44 @@ export async function initAnalyticsDb(): Promise<void> {
 
 export async function insertTrackEvent(input: TrackEventInput): Promise<void> {
   await initAnalyticsDb();
-  const db = await openDatabase();
-  await run(
-    db,
-    `INSERT INTO event_logs (category, event_key, target_url, source_path)
-     VALUES (?, ?, ?, ?)`,
-    [input.category, input.eventKey, input.targetUrl, input.sourcePath]
-  );
+  await appendRecord({
+    ...input,
+    createdAt: new Date().toISOString()
+  });
 }
 
 export async function getTrackEventStats(days = 30): Promise<TrackEventStatRow[]> {
   await initAnalyticsDb();
-  const db = await openDatabase();
   const safeDays = Number.isFinite(days) ? Math.max(1, Math.min(365, Math.floor(days))) : 30;
-  return all<TrackEventStatRow>(
-    db,
-    `SELECT category as category, event_key as eventKey, COUNT(*) as hits
-     FROM event_logs
-     WHERE created_at >= datetime('now', ?)
-     GROUP BY category, event_key
-     ORDER BY hits DESC, category ASC, event_key ASC`,
-    [`-${safeDays} days`]
+  const thresholdMs = Date.now() - safeDays * 24 * 60 * 60 * 1000;
+  const counts = new Map<string, TrackEventStatRow>();
+
+  if (!fs.existsSync(DB_PATH)) {
+    return [];
+  }
+
+  const stream = fs.createReadStream(DB_PATH, { encoding: 'utf8' });
+  const rl = readline.createInterface({ input: stream, crlfDelay: Infinity });
+
+  for await (const line of rl) {
+    if (!line.trim()) continue;
+    try {
+      const record = JSON.parse(line) as EventLogRecord;
+      const createdAt = new Date(record.createdAt).getTime();
+      if (!Number.isFinite(createdAt) || createdAt < thresholdMs) continue;
+      const key = `${record.category}::${record.eventKey}`;
+      const existing = counts.get(key);
+      if (existing) {
+        existing.hits += 1;
+      } else {
+        counts.set(key, { category: record.category, eventKey: record.eventKey, hits: 1 });
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  return Array.from(counts.values()).sort(
+    (a, b) => b.hits - a.hits || a.category.localeCompare(b.category) || a.eventKey.localeCompare(b.eventKey)
   );
 }

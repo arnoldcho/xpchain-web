@@ -62,7 +62,7 @@ pm2 restart xpchain-web-monitor
 - `XPCHAIN_RPC_TIMEOUT_MS`: RPC 타임아웃(ms)
 - `EXPLORER_DB_STATUS_URL`: 익스플로러 DB 상태 API 주소
 - `EXPLORER_DB_STATUS_TIMEOUT_MS`: 익스플로러 DB 상태 조회 타임아웃(ms)
-- `XPCHAIN_ANALYTICS_DB_PATH`: 클릭 통계 SQLite 파일 경로 (기본: `data/analytics.sqlite3`)
+- `XPCHAIN_ANALYTICS_DB_PATH`: 클릭 통계 이벤트 로그 파일 경로 (기본: `data/analytics-events.jsonl`)
 - `TRACKING_STATS_TOKEN`: 내부 통계 페이지/통계 API 보호용 토큰 (선택)
 
 ## 주요 스크립트
