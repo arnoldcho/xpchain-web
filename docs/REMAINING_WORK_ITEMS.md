@@ -13,7 +13,7 @@
 ## 2) 콘텐츠/문서 마무리
 
 - [x] 레거시 문서 최종 문구 검수 (한글 우선)
-- [ ] 주요 페이지 영문 패치 최종 점검 (3개 언어 페이지 반영 완료, 최종 QA/표현 다듬기 및 검색콘솔 제출 남음)
+- [x] 주요 페이지 영문 패치 최종 점검 (3개 언어 페이지 반영 완료, 최종 QA/표현 다듬기 및 검색콘솔 제출 완료)
 - [x] Wix 종료 후 레거시 외부 링크 정리 정책 확정
 - [x] 공개 가능한 범위의 “히스토리 + 현재 운영 범위” 문구 게시
 
@@ -68,9 +68,9 @@
 
 - [x] `/sitemap.xml`, `/robots.txt` 응답 확인
 - [x] 네이버 사이트 검증 메타 태그 적용 (`naver-site-verification`)
-- [ ] Google Search Console 사이트맵 제출 (`https://www.xpchain.co.kr/sitemap.xml`)
-- [ ] 네이버 서치어드바이저 사이트맵 제출 (`https://www.xpchain.co.kr/sitemap.xml`)
-- [ ] 대표 페이지 3개 언어(ko/en/ja) 인덱싱 요청 (홈/지갑/스테이킹/문서)
-- [ ] canonical/hreflang 수동 점검 (중복/누락 없음)
-- [ ] 구조화 데이터(JSON-LD) 적용 여부 최종 결정 (Organization, WebSite, Breadcrumb)
-- [ ] 색인/크롤링 모니터링 루틴 정리 (주 1회: 색인 범위, 크롤링 오류, 모바일 사용성)
+- [x] Google Search Console 사이트맵 제출 (`https://www.xpchain.co.kr/sitemap.xml`)
+- [x] 네이버 서치어드바이저 사이트맵 제출 (`https://www.xpchain.co.kr/sitemap.xml`)
+- [x] 대표 페이지 3개 언어(ko/en/ja) 인덱싱 요청 (홈/지갑/스테이킹/문서)
+- [x] canonical/hreflang 수동 점검 (중복/누락 없음, `buildAlternates`/`canonical` 전 페이지 적용 확인)
+- [x] 구조화 데이터(JSON-LD) 적용 여부 최종 결정 (v1 미적용 유지, 추후 릴리즈에서 Organization/WebSite/Breadcrumb 단계 적용)
+- [x] 색인/크롤링 모니터링 루틴 정리 (주 1회: 색인 범위, 크롤링 오류, 모바일 사용성 / 월 1회: Core Web Vitals 추이 점검)
