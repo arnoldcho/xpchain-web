@@ -74,3 +74,8 @@
 - [x] canonical/hreflang 수동 점검 (중복/누락 없음, `buildAlternates`/`canonical` 전 페이지 적용 확인)
 - [x] 구조화 데이터(JSON-LD) 적용 여부 최종 결정 (v1 미적용 유지, 추후 릴리즈에서 Organization/WebSite/Breadcrumb 단계 적용)
 - [x] 색인/크롤링 모니터링 루틴 정리 (주 1회: 색인 범위, 크롤링 오류, 모바일 사용성 / 월 1회: Core Web Vitals 추이 점검)
+
+## 10) 반복 운영 체크리스트 분리
+
+- [x] 배포/운영 반복 점검 항목을 별도 문서로 분리
+- [x] 운영 체크는 [`RECURRING_OPERATIONS_CHECKLIST.md`](./RECURRING_OPERATIONS_CHECKLIST.md) 기준으로 수행
