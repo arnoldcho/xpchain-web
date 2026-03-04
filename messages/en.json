@@ -157,14 +157,14 @@
     "title": "Notices",
     "subtitle": "Operational updates and change history.",
     "items": [
-      "Published disclosure criteria for 'History + Current Operations Scope' on the docs page.",
+      "Officially launched the XPChain website. (ko/en/ja, Network/Wallets/Staking/Explorer/Docs live)",
+      "Completed Google Search Console and Naver Search Advisor registration with sitemap submission.",
+      "Applied locale-path rewrite for robots/sitemap to improve Naver crawler compatibility.",
+      "Aligned locale params handling for Next.js 16 and fixed runtime errors on docs/wallets/staking.",
+      "Completed XPC 1.0 technical series reflection on docs (Archive + organized edition).",
       "Updated docs with v0.17.0-4 release verification results (macOS/Linux/Windows x64/x86 PASS).",
       "Completed performance and loading UI improvements for blockchain explorer search/address lookup.",
-      "Published XPC 1.0 technical series Part 3 (chain spec) on docs.",
-      "Published XPC 1.0 technical series Part 2 (ABPoS) on docs.",
-      "Published XPC 1.0 technical series Part 1 on docs.",
-      "Started website renewal development and finalized architecture principles.",
-      "Integrated dashboard structure based on network status API (/api/status).",
+      "Published disclosure criteria for 'History + Current Operations Scope' on the docs page.",
       "Migrated three whitepapers to server hosting and reorganized docs page."
     ]
   },
@@ -214,15 +214,15 @@
     "executionBody": "Priorities below may be adjusted based on verification results and network status.",
     "now": "Now",
     "nowItems": [
-      "Final wallet behavior verification on Windows x64/x86",
-      "Public wallet user guide finalization (install/backup/recovery)",
-      "Fine-tune explorer update/cache operation parameters"
+      "Post-launch stabilization operations (docs/wallets/staking/explorer)",
+      "Search indexing monitoring (Google/Naver index and robots/sitemap status)",
+      "Run wallet/release verification checklist regularly"
     ],
     "next": "Next",
     "nextItems": [
       "Finalize public Ubuntu node operation guide",
       "Standardize notice/docs/release update runbook",
-      "Run wallet/release verification checklist regularly"
+      "Review and phase in structured data (JSON-LD)"
     ],
     "later": "Later",
     "laterItems": [
