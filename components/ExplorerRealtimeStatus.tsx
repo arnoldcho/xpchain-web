@@ -8,6 +8,22 @@ import type { NetworkStatus } from '@/lib/rpc';
 type Props = {
   initialStatus: NetworkStatus;
   initialExplorerDbStatus: ExplorerDbStatus | null;
+  labels?: {
+    inspectTitle: string;
+    inspectMessage: string;
+    delayedTitle: string;
+    delayedMessage: string;
+    healthyTitle: string;
+    healthyMessage: string;
+    statusPrefix: string;
+    lastBlockTimeLabel: string;
+    dbSyncTitle: string;
+    dbNodeBlocksLabel: string;
+    dbBlocksLabel: string;
+    dbLagLabel: string;
+    dbLastUpdatedLabel: string;
+  };
+  dateTimeLocale?: string;
 };
 
 const REFRESH_INTERVAL_MS = 60000;
@@ -64,7 +80,28 @@ async function fetchLiveExplorerPayload(): Promise<LiveExplorerPayload | null> {
   return inflightLiveFetch;
 }
 
-export function ExplorerRealtimeStatus({ initialStatus, initialExplorerDbStatus }: Props) {
+const defaultLabels = {
+    inspectTitle: '점검',
+    inspectMessage: '실시간 RPC 데이터를 가져오지 못해 임시 데이터로 표시 중입니다. 노드/RPC 상태를 점검해 주세요.',
+    delayedTitle: '지연',
+    delayedMessage: '최근 블록 반영이 지연되고 있습니다. 마지막 블록 기준 {lagSeconds}초 경과.',
+    healthyTitle: '정상',
+    healthyMessage: '익스플로러 동기화 상태가 정상입니다.',
+    statusPrefix: '상태',
+    lastBlockTimeLabel: '마지막 블록 시각',
+    dbSyncTitle: '안내: 익스플로러 DB 적재 진행 중',
+    dbNodeBlocksLabel: '노드 블록',
+    dbBlocksLabel: 'DB 블록',
+    dbLagLabel: '지연',
+    dbLastUpdatedLabel: 'DB 마지막 갱신'
+  };
+
+export function ExplorerRealtimeStatus({
+  initialStatus,
+  initialExplorerDbStatus,
+  labels = defaultLabels,
+  dateTimeLocale = 'ko-KR'
+}: Props) {
   const [status, setStatus] = useState<NetworkStatus>(initialStatus);
   const [explorerDbStatus, setExplorerDbStatus] = useState<ExplorerDbStatus | null>(initialExplorerDbStatus);
 
@@ -106,47 +143,55 @@ export function ExplorerRealtimeStatus({ initialStatus, initialExplorerDbStatus 
     const nextBanner =
       status.dataSource !== 'rpc'
         ? {
-            title: '점검',
+            title: labels.inspectTitle,
             className: 'border-warn/50 bg-warn/10 text-warn',
-            message: '실시간 RPC 데이터를 가져오지 못해 임시 데이터로 표시 중입니다. 노드/RPC 상태를 점검해 주세요.'
+            message: labels.inspectMessage
           }
         : lagSeconds > delayedThreshold || status.nodeHealth === 'degraded'
           ? {
-              title: '지연',
+              title: labels.delayedTitle,
               className: 'border-warn/50 bg-warn/10 text-warn',
-              message: `최근 블록 반영이 지연되고 있습니다. 마지막 블록 기준 ${lagSeconds}초 경과.`
+              message: labels.delayedMessage
+                .replace('{lagSeconds}', String(lagSeconds))
+                .replace('__LAG_SECONDS__', String(lagSeconds))
             }
           : {
-              title: '정상',
+              title: labels.healthyTitle,
               className: 'border-accent/50 bg-accent/10 text-accent',
-              message: '익스플로러 동기화 상태가 정상입니다.'
+              message: labels.healthyMessage
             };
 
     return {
       banner: nextBanner,
       showDbIndexingBanner: isDbIndexing
     };
-  }, [status, explorerDbStatus]);
+  }, [labels, status, explorerDbStatus]);
 
   return (
     <>
       <div className={`rounded border px-3 py-2 ${banner.className}`}>
         <p className="font-semibold">
-          상태: {banner.title} ({status.blockHeight.toLocaleString()})
+          {labels.statusPrefix}: {banner.title} ({status.blockHeight.toLocaleString()})
         </p>
         <p className="mt-1">{banner.message}</p>
-        <p className="mt-1 text-xs opacity-90">마지막 블록 시각: {formatDateTime(status.lastBlockTime)}</p>
+        <p className="mt-1 text-xs opacity-90">
+          {labels.lastBlockTimeLabel}: {formatDateTime(status.lastBlockTime, { locale: dateTimeLocale })}
+        </p>
       </div>
 
       {showDbIndexingBanner ? (
         <div className="rounded border border-warn/50 bg-warn/10 px-3 py-2 text-warn">
-          <p className="font-semibold">안내: 익스플로러 DB 적재 진행 중</p>
+          <p className="font-semibold">{labels.dbSyncTitle}</p>
           <p className="mt-1">
-            노드 블록 {explorerDbStatus?.node_blockcount?.toLocaleString() ?? '-'} / DB 블록{' '}
-            {explorerDbStatus?.db_blockcount?.toLocaleString() ?? '-'} (지연: {explorerDbStatus?.lag?.toLocaleString() ?? '-'})
+            {labels.dbNodeBlocksLabel} {explorerDbStatus?.node_blockcount?.toLocaleString() ?? '-'} / {labels.dbBlocksLabel}{' '}
+            {explorerDbStatus?.db_blockcount?.toLocaleString() ?? '-'} ({labels.dbLagLabel}:{' '}
+            {explorerDbStatus?.lag?.toLocaleString() ?? '-'})
           </p>
           <p className="mt-1 text-xs opacity-90">
-            DB 마지막 갱신: {explorerDbStatus?.last_updated_date ? formatDateTime(explorerDbStatus.last_updated_date) : '-'}
+            {labels.dbLastUpdatedLabel}:{' '}
+            {explorerDbStatus?.last_updated_date
+              ? formatDateTime(explorerDbStatus.last_updated_date, { locale: dateTimeLocale })
+              : '-'}
           </p>
         </div>
       ) : null}

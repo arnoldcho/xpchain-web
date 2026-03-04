@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "siteTitle": "XPChain",
+    "siteDescription": "XPChainは分散性と長期的持続性を重視して運営される独立メインネットブロックチェーンです。"
+  },
+  "nav": {
+    "mobileMenuAriaLabel": "モバイルメニューを開く",
+    "menu": "メニュー",
+    "mainMenu": "メインメニュー",
+    "mobileMenu": "モバイルメニュー",
+    "home": "ホーム",
+    "languageLabel": "言語を選択",
+    "primary": {
+      "network": "ネットワーク",
+      "wallets": "ウォレット",
+      "staking": "ステーキング",
+      "explorer": "エクスプローラー"
+    },
+    "more": {
+      "title": "その他",
+      "notices": "お知らせ",
+      "docs": "ドキュメント",
+      "roadmap": "ロードマップ",
+      "build": "ビルド",
+      "community": "コミュニティ",
+      "philosophy": "哲学"
+    },
+    "languages": {
+      "ko": "KO",
+      "en": "EN",
+      "ja": "JA"
+    }
+  },
+  "footer": {
+    "line1": "本サイトは投資勧誘を目的としておらず、利益を保証しません。",
+    "line2": "ネットワークおよびエクスプローラーデータには遅延や誤差が含まれる場合があります。",
+    "copyright": "Copyright © 2018-2026 XPChain Community. All rights reserved."
+  },
+  "home": {
+    "eyebrow": "Independent Mainnet",
+    "titleLine1": "XPChain runs every day.",
+    "titleLine2": "Quietly. Consistently.",
+    "description": "XPChain is operated around decentralization, network stability, and long-term sustainability.",
+    "statusDataSource": "ステータスデータソース",
+    "rpcSource": "RPC（最大1分キャッシュ）",
+    "fallbackSource": "フォールバックデータ",
+    "ctaNetwork": "ネットワーク状態を見る",
+    "ctaStaking": "ステーキングガイド",
+    "ctaWallets": "ウォレットをダウンロード",
+    "snapshotTitle": "ネットワークスナップショット",
+    "snapshotSubtitle": "チェーンの健全性をデータで確認します。",
+    "status": {
+      "blockHeight": "ブロック高",
+      "connections": "接続数",
+      "avgBlockTime": "平均ブロック間隔",
+      "nodeHealth": "ノード状態",
+      "healthy": "正常",
+      "degraded": "要確認"
+    },
+    "showcaseTitle": "最初の実利用事例",
+    "showcaseSubtitle": "XPChainに依存しない応用事例です。",
+    "smartpig": "SmartPigはAIベースのリサーチ/ブリーフィングサービスで、主要機能の開発はほぼ完了しています。XPC決済はChrome拡張機能の決済UI更新後に段階的に反映予定です。",
+    "xroutine": "XRoutineはルーチン参加型サービスとして現在開発中です。"
+  },
+  "network": {
+    "srTitle": "ネットワーク状態",
+    "title": "ネットワーク状態",
+    "subtitle": "チェーンはデータが見えるときに信頼されます。",
+    "dataSource": "データソース",
+    "updatedAt": "更新時刻",
+    "rpcSource": "RPCデータ（最大1分キャッシュ）",
+    "fallbackSource": "フォールバックデータ",
+    "cards": {
+      "currentBlock": "現在ブロック",
+      "avgBlockTime": "平均ブロック間隔",
+      "peers": "ピア接続",
+      "lastBlockTime": "最終ブロック時刻",
+      "stakingEstimate": "推定ステーキング参加率",
+      "protocol": "プロトコル"
+    },
+    "chartTitle": "ブロック間隔推移",
+    "chartSubtitle": "直近1時間（最新60ブロック）の生成間隔を可視化しました。",
+    "chartCaption": "直近60ブロック間隔（左: 過去 / 右: 最新）",
+    "secondsUnit": "秒",
+    "participationTitle": "参加",
+    "participationSubtitle": "長期的な存続は参加の蓄積で強化されます。",
+    "participationBody": "ステーキング参加はネットワークの分散性を高めます。ウォレット同期完了後にstaking-only unlockで運用すると、チェーン安定性の強化に寄与できます。"
+  },
+  "explorer": {
+    "srTitle": "エクスプローラー",
+    "title": "エクスプローラー",
+    "subtitle": "ブロックと取引履歴を確認できるメイン/バックアップURLを提供します。",
+    "primary": "メイン",
+    "fallback": "バックアップ",
+    "dataRef": "データ基準: /api/status（最大1分キャッシュ、最終ブロック時刻/平均ブロック間隔/ノード状態）",
+    "status": {
+      "inspectTitle": "点検",
+      "inspectMessage": "リアルタイムRPCデータを取得できないためフォールバックデータを表示しています。ノード/RPC状態を確認してください。",
+      "delayedTitle": "遅延",
+      "delayedMessage": "最近のブロック反映が遅延しています。最終ブロックから__LAG_SECONDS__秒経過。",
+      "healthyTitle": "正常",
+      "healthyMessage": "エクスプローラー同期状態は正常です。",
+      "statusPrefix": "状態",
+      "lastBlockTimeLabel": "最終ブロック時刻",
+      "dbSyncTitle": "案内: エクスプローラーDB取り込み中",
+      "dbNodeBlocksLabel": "ノードブロック",
+      "dbBlocksLabel": "DBブロック",
+      "dbLagLabel": "遅延",
+      "dbLastUpdatedLabel": "DB最終更新"
+    }
+  },
+  "build": {
+    "srTitle": "ビルド",
+    "title": "ビルド",
+    "subtitle": "XPChain上で動作する実利用事例を紹介します。",
+    "smartpig": "AIリサーチ/ブリーフィングワークフローの主要機能はほぼ完成しています。XPC決済はChrome拡張機能の決済連携更新後に段階的に導入予定です。",
+    "xroutine": "ルーチン参加モデルとして現在開発中です。"
+  },
+  "community": {
+    "srTitle": "コミュニティ",
+    "title": "コミュニティ",
+    "subtitle": "技術更新とネットワーク状態を共有するチャンネルです。",
+    "telegramNotice": "Telegramお知らせチャンネル",
+    "telegramChat": "Telegramチャット",
+    "kakao": "Kakaoチャンネル",
+    "discordJapan": "Discord（日本）"
+  },
+  "philosophy": {
+    "srTitle": "哲学",
+    "title": "哲学",
+    "subtitle": "XPChainを維持する方法とコミュニティ運営原則",
+    "purposeTitle": "存在理由",
+    "purposeBody1": "XPChainは長期的に記録と信頼を蓄積する独立メインネットを目指します。",
+    "purposeBody2": "検証可能な運営データを積み上げ、参加ベースのネットワークとして維持することを目標とします。",
+    "coreTitle": "コア哲学",
+    "core1": "分散: 特定主体の統制ではなく、多数ノード参加で安定性と独立性を強化します。",
+    "core2": "検証可能性: ネットワーク状態、API、リリースノート、ハッシュ値を公開し、誰でも検証可能な構造を維持します。",
+    "core3": "長期持続性: 短期イベントより、継続可能な運用手順と文書蓄積を優先します。",
+    "transparencyTitle": "運営透明性の原則",
+    "transparency1": "重要変更はリリースノートで理由と範囲を明確に残します。",
+    "transparency2": "コンセンサス影響変更は別途区分して案内します。",
+    "transparency3": "ウォレット配布ファイルにはSHA-256と検証方法を併記します。",
+    "transparency4": "ネットワーク/エクスプローラー状態は測定可能指標で表示します。",
+    "transparency5": "過去文書はアーカイブ化し、現在基準との差異を明示します。",
+    "communicationTitle": "コミュニケーション境界",
+    "communication1": "本サイトの内容は投資勧誘ではありません。",
+    "communication2": "収益・価格・流動性に関する保証は提供しません。",
+    "communication3": "ステーキングは収益商品ではなくネットワーク参加行為として案内します。",
+    "communication4": "未確認情報や推定は公式文書/告知で事実と断定しません。",
+    "servicesTitle": "XPChainと応用サービス",
+    "services1": "SmartPigは主要開発がほぼ完了し、XRoutineは開発中です。",
+    "services2": "SmartPigのXPC決済連携はChrome拡張機能の決済UI更新後に適用予定です。",
+    "services3": "XPChainは特定サービスに従属せず、複数アプリケーションを接続できる独立ネットワークです。"
+  },
+  "notices": {
+    "srTitle": "お知らせ",
+    "title": "お知らせ",
+    "subtitle": "運営アップデートと変更履歴を共有します。",
+    "items": [
+      "ドキュメントページに「履歴 + 現在の運用範囲」公開基準文言を掲載しました。",
+      "v0.17.0-4のリリース検証結果（macOS/Linux/Windows x64/x86 PASS）をドキュメントに反映しました。",
+      "ブロックチェーンエクスプローラー検索/アドレス照会の性能とローディング表示を改善しました。",
+      "XPC 1.0技術シリーズ Part 3（チェーン仕様）を公開しました。",
+      "XPC 1.0技術シリーズ Part 2（ABPoS）を公開しました。",
+      "XPC 1.0技術シリーズ Part 1を公開しました。",
+      "Webサイトリニューアル開発を開始し、アーキテクチャ基準を確定しました。",
+      "ネットワーク状態API（/api/status）ベースのダッシュボード構成を反映しました。",
+      "3言語ホワイトペーパーをサーバーホスティングに移行し、ドキュメントページを整理しました。"
+    ]
+  },
+  "roadmap": {
+    "srTitle": "ロードマップ",
+    "title": "ロードマップ",
+    "subtitle": "方向性と実行項目を公開します。",
+    "directionTitle": "A. 方向性ロードマップ",
+    "directionBody": "XPChainのロードマップは短期イベント中心ではなく、ネットワーク安定性と長期持続性を基準に設計されます。",
+    "direction1": "ネットワーク安定性の維持",
+    "direction1Items": [
+      "ブロック生成安定性の継続点検",
+      "ノード接続状態の監視と改善",
+      "公開ネットワーク指標の拡大",
+      "ステーキング参加環境の改善"
+    ],
+    "direction2": "インフラとウォレット改善",
+    "direction2Items": [
+      "Qtウォレット保守とビルド安定性の強化",
+      "マルチOS配布自動化の維持",
+      "配布ファイル整合性検証（SHA-256）強化",
+      "UTXO管理の利便性改善検討"
+    ],
+    "direction3": "分散構造の強化",
+    "direction3Items": [
+      "自発的ノード参加の拡大",
+      "ステーキング参加率の段階的改善",
+      "ブロック生成分布の監視",
+      "運営依存度の段階的緩和"
+    ],
+    "direction4": "実利用事例の蓄積",
+    "direction4Items": [
+      "SmartPig運営安定化と決済連携準備",
+      "XRoutine開発継続と段階公開",
+      "ネットワーク活用可能性の研究"
+    ],
+    "direction4Note": "XPChainは特定サービスに依存しない独立ネットワークとして維持されます。",
+    "direction5": "記録と透明性",
+    "direction5Items": [
+      "リリース記録の継続蓄積",
+      "コンセンサス変更の明確な区分告知",
+      "運営文書とアーカイブの維持",
+      "ネットワーク状態の継続公開"
+    ],
+    "directionSummary": "方向性: 急速な変化より安定運用と段階的改善を優先します。",
+    "executionTitle": "B. 実行ロードマップ",
+    "executionBody": "以下項目は検証結果とネットワーク状態により優先順が調整される場合があります。",
+    "now": "Now",
+    "nowItems": [
+      "Windows x64/x86ウォレット最終動作検証",
+      "ウォレット利用者ガイド（インストール/バックアップ/復旧）公開版整理",
+      "Explorer更新/キャッシュ運用値の微調整"
+    ],
+    "next": "Next",
+    "nextItems": [
+      "Ubuntuノード運用文書の公開版確定",
+      "お知らせ/文書/リリース更新手順の標準化",
+      "ウォレット/リリース検証チェックリストの定期運用"
+    ],
+    "later": "Later",
+    "laterItems": [
+      "Seedインフラ(seed1~seed3)運用方針の確定と適用",
+      "ロードマップ/哲学/お知らせ連動更新周期の固定",
+      "公開運用指標の高度化"
+    ],
+    "disclaimer": "本ロードマップは運用基準文書であり投資判断資料ではありません。"
+  }
+}

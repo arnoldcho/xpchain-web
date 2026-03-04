@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "siteTitle": "XPChain",
+    "siteDescription": "XPChain is an independent mainnet blockchain focused on decentralization and long-term sustainability."
+  },
+  "nav": {
+    "mobileMenuAriaLabel": "Open mobile menu",
+    "menu": "Menu",
+    "mainMenu": "Main menu",
+    "mobileMenu": "Mobile menu",
+    "home": "Home",
+    "languageLabel": "Choose language",
+    "primary": {
+      "network": "Network",
+      "wallets": "Wallets",
+      "staking": "Staking",
+      "explorer": "Explorer"
+    },
+    "more": {
+      "title": "More",
+      "notices": "Notices",
+      "docs": "Docs",
+      "roadmap": "Roadmap",
+      "build": "Build",
+      "community": "Community",
+      "philosophy": "Philosophy"
+    },
+    "languages": {
+      "ko": "KO",
+      "en": "EN",
+      "ja": "JA"
+    }
+  },
+  "footer": {
+    "line1": "This site does not provide investment solicitation and does not guarantee profits.",
+    "line2": "Network and explorer data may include delays or inaccuracies.",
+    "copyright": "Copyright © 2018-2026 XPChain Community. All rights reserved."
+  },
+  "home": {
+    "eyebrow": "Independent Mainnet",
+    "titleLine1": "XPChain runs every day.",
+    "titleLine2": "Quietly. Consistently.",
+    "description": "XPChain is operated around decentralization, network stability, and long-term sustainability.",
+    "statusDataSource": "Status data source",
+    "rpcSource": "RPC (up to 1-minute cache)",
+    "fallbackSource": "Fallback data",
+    "ctaNetwork": "View network status",
+    "ctaStaking": "Staking guide",
+    "ctaWallets": "Download wallets",
+    "snapshotTitle": "Network Snapshot",
+    "snapshotSubtitle": "Check chain health with measurable data.",
+    "status": {
+      "blockHeight": "Block Height",
+      "connections": "Connections",
+      "avgBlockTime": "Avg Block Time",
+      "nodeHealth": "Node Health",
+      "healthy": "Healthy",
+      "degraded": "Needs attention"
+    },
+    "showcaseTitle": "First Production Use Cases",
+    "showcaseSubtitle": "Independent applications that are not coupled to XPChain.",
+    "smartpig": "SmartPig is an AI-based research/briefing service and most core development is complete. XPC payment support will be rolled out after Chrome extension payment UX updates.",
+    "xroutine": "XRoutine is currently under development as a routine participation service."
+  },
+  "network": {
+    "srTitle": "Network Status",
+    "title": "Network Status",
+    "subtitle": "A chain is trusted when its data is visible.",
+    "dataSource": "Data source",
+    "updatedAt": "Updated at",
+    "rpcSource": "RPC data (up to 1-minute cache)",
+    "fallbackSource": "Fallback data",
+    "cards": {
+      "currentBlock": "Current Block",
+      "avgBlockTime": "Avg Block Time",
+      "peers": "Peer Connections",
+      "lastBlockTime": "Last Block Time",
+      "stakingEstimate": "Estimated Staking Participation",
+      "protocol": "Protocol"
+    },
+    "chartTitle": "Block Interval Trend",
+    "chartSubtitle": "Visualized block generation intervals for the last hour (latest 60 blocks).",
+    "chartCaption": "Latest 60 block intervals (left: past, right: newest)",
+    "secondsUnit": "s",
+    "participationTitle": "Participation",
+    "participationSubtitle": "Long-term survival is strengthened by participation.",
+    "participationBody": "Staking participation improves decentralization. Running in staking-only unlock mode after full sync can help strengthen chain stability."
+  },
+  "explorer": {
+    "srTitle": "Explorer",
+    "title": "Explorer",
+    "subtitle": "Primary and backup explorer URLs for blocks and transactions.",
+    "primary": "Primary",
+    "fallback": "Backup",
+    "dataRef": "Data source: /api/status (up to 1-minute cache, last block time / average block interval / node health)",
+    "status": {
+      "inspectTitle": "Check Required",
+      "inspectMessage": "Live RPC data is unavailable, so fallback data is shown. Please check node/RPC health.",
+      "delayedTitle": "Delayed",
+      "delayedMessage": "Recent block updates are delayed. __LAG_SECONDS__ seconds since the last block.",
+      "healthyTitle": "Healthy",
+      "healthyMessage": "Explorer sync status is healthy.",
+      "statusPrefix": "Status",
+      "lastBlockTimeLabel": "Last block time",
+      "dbSyncTitle": "Notice: Explorer DB indexing in progress",
+      "dbNodeBlocksLabel": "Node blocks",
+      "dbBlocksLabel": "DB blocks",
+      "dbLagLabel": "Lag",
+      "dbLastUpdatedLabel": "DB last updated"
+    }
+  },
+  "build": {
+    "srTitle": "Build",
+    "title": "Build",
+    "subtitle": "Production use cases running on XPChain.",
+    "smartpig": "Core features are mostly complete for the AI research/briefing workflow. XPC payment support will be introduced in phases after Chrome extension payment updates.",
+    "xroutine": "A routine-based participation model currently under development."
+  },
+  "community": {
+    "srTitle": "Community",
+    "title": "Community",
+    "subtitle": "Channels for technical updates and network status sharing.",
+    "telegramNotice": "Telegram notice channel",
+    "telegramChat": "Telegram chat",
+    "kakao": "Kakao channel",
+    "discordJapan": "Discord (Japan)"
+  },
+  "philosophy": {
+    "srTitle": "Philosophy",
+    "title": "Philosophy",
+    "subtitle": "How XPChain is sustained and how the community operates",
+    "purposeTitle": "Why XPChain exists",
+    "purposeBody1": "XPChain aims to remain an independent mainnet that accumulates records and trust over time.",
+    "purposeBody2": "We focus on building verifiable operational data and sustaining the network through participation.",
+    "coreTitle": "Core Principles",
+    "core1": "Decentralization: Strengthen chain resilience and independence through broad node participation rather than control by a single actor.",
+    "core2": "Verifiability: Keep network status, APIs, release notes, and hashes publicly verifiable.",
+    "core3": "Long-term sustainability: Prioritize durable procedures and documentation over short-term events.",
+    "transparencyTitle": "Operational Transparency",
+    "transparency1": "Major changes are documented with reasons and scope in release notes.",
+    "transparency2": "Consensus-impacting changes are explicitly separated and announced.",
+    "transparency3": "Wallet binaries are distributed with SHA-256 hashes and verification instructions.",
+    "transparency4": "Network and explorer status are displayed using measurable indicators.",
+    "transparency5": "Legacy documents are archived and differences from current standards are stated.",
+    "communicationTitle": "Communication Boundaries",
+    "communication1": "Nothing on this site is investment solicitation.",
+    "communication2": "No guarantees are provided regarding returns, prices, or liquidity.",
+    "communication3": "Staking is presented as network participation, not as an investment product.",
+    "communication4": "Unverified information or speculation is not asserted as fact in official channels.",
+    "servicesTitle": "XPChain and Applications",
+    "services1": "Most core development for SmartPig is complete, and XRoutine is in active development.",
+    "services2": "SmartPig XPC payment integration will follow Chrome extension payment UX updates.",
+    "services3": "XPChain is an independent network that is not tied to a single service and can connect multiple applications."
+  },
+  "notices": {
+    "srTitle": "Notices",
+    "title": "Notices",
+    "subtitle": "Operational updates and change history.",
+    "items": [
+      "Published disclosure criteria for 'History + Current Operations Scope' on the docs page.",
+      "Updated docs with v0.17.0-4 release verification results (macOS/Linux/Windows x64/x86 PASS).",
+      "Completed performance and loading UI improvements for blockchain explorer search/address lookup.",
+      "Published XPC 1.0 technical series Part 3 (chain spec) on docs.",
+      "Published XPC 1.0 technical series Part 2 (ABPoS) on docs.",
+      "Published XPC 1.0 technical series Part 1 on docs.",
+      "Started website renewal development and finalized architecture principles.",
+      "Integrated dashboard structure based on network status API (/api/status).",
+      "Migrated three whitepapers to server hosting and reorganized docs page."
+    ]
+  },
+  "roadmap": {
+    "srTitle": "Roadmap",
+    "title": "Roadmap",
+    "subtitle": "Publicly sharing direction and execution items.",
+    "directionTitle": "A. Direction Roadmap",
+    "directionBody": "XPChain's roadmap is designed around network stability and long-term sustainability rather than short-term events.",
+    "direction1": "Maintain network stability",
+    "direction1Items": [
+      "Ongoing checks for block production stability",
+      "Monitor and improve node connectivity",
+      "Expand the published network metrics",
+      "Improve the staking participation environment"
+    ],
+    "direction2": "Infrastructure and wallet improvements",
+    "direction2Items": [
+      "Strengthen Qt wallet maintenance and build reliability",
+      "Maintain multi-OS distribution automation",
+      "Strengthen distribution integrity verification (SHA-256)",
+      "Review improvements for UTXO management usability"
+    ],
+    "direction3": "Strengthen decentralization",
+    "direction3Items": [
+      "Expand voluntary node participation",
+      "Gradually improve staking participation rate",
+      "Monitor block production distribution",
+      "Gradually reduce operational central dependency"
+    ],
+    "direction4": "Accumulate production use cases",
+    "direction4Items": [
+      "Stabilize SmartPig operations and prepare payment integration",
+      "Continue XRoutine development with phased disclosure",
+      "Explore more use cases leveraging the network"
+    ],
+    "direction4Note": "XPChain remains an independent network not bound to a single service.",
+    "direction5": "Records and transparency",
+    "direction5Items": [
+      "Continuously accumulate release records",
+      "Clearly distinguish and announce consensus changes",
+      "Maintain operational docs and archives",
+      "Continuously publish network status"
+    ],
+    "directionSummary": "Direction: prioritize stable operation and incremental improvement over rapid change.",
+    "executionTitle": "B. Execution Roadmap",
+    "executionBody": "Priorities below may be adjusted based on verification results and network status.",
+    "now": "Now",
+    "nowItems": [
+      "Final wallet behavior verification on Windows x64/x86",
+      "Public wallet user guide finalization (install/backup/recovery)",
+      "Fine-tune explorer update/cache operation parameters"
+    ],
+    "next": "Next",
+    "nextItems": [
+      "Finalize public Ubuntu node operation guide",
+      "Standardize notice/docs/release update runbook",
+      "Run wallet/release verification checklist regularly"
+    ],
+    "later": "Later",
+    "laterItems": [
+      "Finalize and apply seed infrastructure policy (seed1~seed3)",
+      "Fix roadmap/philosophy/notices update cycle",
+      "Enhance published operational metrics"
+    ],
+    "disclaimer": "This roadmap is an operations document and not investment guidance."
+  }
+}

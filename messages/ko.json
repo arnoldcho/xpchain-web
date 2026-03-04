@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "siteTitle": "XPChain",
+    "siteDescription": "분산성과 장기 지속성을 중심으로 운영되는 독립 메인넷 블록체인 XPChain"
+  },
+  "nav": {
+    "mobileMenuAriaLabel": "모바일 메뉴 열기",
+    "menu": "메뉴",
+    "mainMenu": "주 메뉴",
+    "mobileMenu": "모바일 메뉴",
+    "home": "홈",
+    "languageLabel": "언어 선택",
+    "primary": {
+      "network": "네트워크",
+      "wallets": "지갑",
+      "staking": "스테이킹",
+      "explorer": "익스플로러"
+    },
+    "more": {
+      "title": "더보기",
+      "notices": "공지",
+      "docs": "문서",
+      "roadmap": "로드맵",
+      "build": "빌드",
+      "community": "커뮤니티",
+      "philosophy": "철학"
+    },
+    "languages": {
+      "ko": "KO",
+      "en": "EN",
+      "ja": "JA"
+    }
+  },
+  "footer": {
+    "line1": "본 사이트는 투자 권유를 목적으로 하지 않으며, 수익을 보장하지 않습니다.",
+    "line2": "네트워크 및 익스플로러 데이터는 지연 또는 오차가 있을 수 있습니다.",
+    "copyright": "Copyright © 2018-2026 XPChain Community. All rights reserved."
+  },
+  "home": {
+    "eyebrow": "Independent Mainnet",
+    "titleLine1": "XPChain runs every day.",
+    "titleLine2": "Quietly. Consistently.",
+    "description": "XPChain is operated around decentralization, network stability, and long-term sustainability.",
+    "statusDataSource": "상태 데이터 소스",
+    "rpcSource": "RPC(최대 1분 캐시)",
+    "fallbackSource": "임시 데이터",
+    "ctaNetwork": "네트워크 상태 보기",
+    "ctaStaking": "스테이킹 가이드",
+    "ctaWallets": "지갑 다운로드",
+    "snapshotTitle": "네트워크 스냅샷",
+    "snapshotSubtitle": "체인 생존 상태를 데이터로 확인합니다.",
+    "status": {
+      "blockHeight": "블록 높이",
+      "connections": "연결 수",
+      "avgBlockTime": "평균 블록 간격",
+      "nodeHealth": "노드 상태",
+      "healthy": "정상",
+      "degraded": "점검 필요"
+    },
+    "showcaseTitle": "첫 실사용 사례",
+    "showcaseSubtitle": "XPChain 종속이 아닌 응용 사례 소개입니다.",
+    "smartpig": "AI 기반 리서치/브리핑 서비스로 핵심 개발은 대부분 마무리되었습니다. XPC 결제는 크롬 확장프로그램의 결제 연동/편의기능 업데이트 이후 순차 반영 예정입니다.",
+    "xroutine": "루틴 참여 기반 서비스로 현재 개발 진행 중입니다."
+  },
+  "network": {
+    "srTitle": "네트워크 상태",
+    "title": "네트워크 상태",
+    "subtitle": "체인은 데이터가 보일 때 신뢰됩니다.",
+    "dataSource": "데이터 소스",
+    "updatedAt": "갱신 시각",
+    "rpcSource": "RPC 데이터(최대 1분 캐시)",
+    "fallbackSource": "임시 데이터(폴백)",
+    "cards": {
+      "currentBlock": "현재 블록",
+      "avgBlockTime": "평균 블록 간격",
+      "peers": "피어 연결",
+      "lastBlockTime": "마지막 블록 시간",
+      "stakingEstimate": "스테이킹 참여 추정",
+      "protocol": "프로토콜"
+    },
+    "chartTitle": "블록 간격 추이",
+    "chartSubtitle": "최근 1시간 동안의 블록 생성 간격(최근 60개 블록 기준)을 시각화했습니다.",
+    "chartCaption": "최근 60개 블록 간격 (왼쪽 과거 · 오른쪽 최신)",
+    "secondsUnit": "초",
+    "participationTitle": "참여",
+    "participationSubtitle": "장기 생존은 참여가 쌓일 때 강화됩니다.",
+    "participationBody": "스테이킹 참여는 네트워크 분산성을 높입니다. 지갑 동기화 완료 후 staking 전용 unlock 상태로 운영하면 체인 안정성 강화에 기여할 수 있습니다."
+  },
+  "explorer": {
+    "srTitle": "익스플로러",
+    "title": "익스플로러",
+    "subtitle": "블록과 거래 내역을 확인할 수 있는 메인/백업 주소를 제공합니다.",
+    "primary": "기본",
+    "fallback": "백업",
+    "dataRef": "데이터 기준: /api/status (최대 1분 캐시, 최근 블록 시각/평균 블록 간격/노드 상태)",
+    "status": {
+      "inspectTitle": "점검",
+      "inspectMessage": "실시간 RPC 데이터를 가져오지 못해 임시 데이터로 표시 중입니다. 노드/RPC 상태를 점검해 주세요.",
+      "delayedTitle": "지연",
+      "delayedMessage": "최근 블록 반영이 지연되고 있습니다. 마지막 블록 기준 __LAG_SECONDS__초 경과.",
+      "healthyTitle": "정상",
+      "healthyMessage": "익스플로러 동기화 상태가 정상입니다.",
+      "statusPrefix": "상태",
+      "lastBlockTimeLabel": "마지막 블록 시각",
+      "dbSyncTitle": "안내: 익스플로러 DB 적재 진행 중",
+      "dbNodeBlocksLabel": "노드 블록",
+      "dbBlocksLabel": "DB 블록",
+      "dbLagLabel": "지연",
+      "dbLastUpdatedLabel": "DB 마지막 갱신"
+    }
+  },
+  "build": {
+    "srTitle": "빌드",
+    "title": "빌드",
+    "subtitle": "XPChain 위에서 동작하는 실사용 사례를 소개합니다.",
+    "smartpig": "AI 리서치/브리핑 워크플로우로 핵심 기능 개발은 대부분 마무리되었습니다. XPC 결제는 크롬 확장프로그램 결제 연동/편의기능 업데이트 이후 단계적으로 반영할 예정입니다.",
+    "xroutine": "루틴 기반 참여 모델로 현재 개발 진행 중입니다."
+  },
+  "community": {
+    "srTitle": "커뮤니티",
+    "title": "커뮤니티",
+    "subtitle": "기술 업데이트와 네트워크 상태 공유 채널입니다.",
+    "telegramNotice": "텔레그램 공지 채널",
+    "telegramChat": "텔레그램 채팅",
+    "kakao": "카카오 채널",
+    "discordJapan": "디스코드(일본)"
+  },
+  "philosophy": {
+    "srTitle": "철학",
+    "title": "철학",
+    "subtitle": "XPChain이 유지되는 방식과 커뮤니티 운영 원칙",
+    "purposeTitle": "존재 이유",
+    "purposeBody1": "XPChain은 장기적으로 기록과 신뢰를 축적하는 독립 메인넷을 지향합니다.",
+    "purposeBody2": "시간이 지날수록 검증 가능한 운영 데이터를 쌓고, 참여 기반의 네트워크로 유지되는 것을 목표로 합니다.",
+    "coreTitle": "핵심 철학",
+    "core1": "분산: 특정 주체의 통제가 아닌 다수 노드 참여를 통해 체인의 안정성과 독립성을 강화합니다.",
+    "core2": "검증 가능성: 네트워크 상태, API, 릴리즈 노트, 해시 값을 공개하여 누구나 확인 가능한 구조를 유지합니다.",
+    "core3": "장기 지속성: 단기 이벤트보다 유지 가능한 운영 절차와 문서 축적을 우선합니다.",
+    "transparencyTitle": "운영 투명성 원칙",
+    "transparency1": "중요한 변경 사항은 릴리즈 노트를 통해 사유와 범위를 명확히 남깁니다.",
+    "transparency2": "합의(Consensus)에 영향을 주는 변경은 별도로 구분하여 안내합니다.",
+    "transparency3": "지갑 배포 파일은 SHA-256 해시와 검증 방법을 함께 제공합니다.",
+    "transparency4": "네트워크 및 익스플로러 상태는 측정 가능한 지표 기반으로 표시합니다.",
+    "transparency5": "과거 문서는 아카이브로 분리하고, 현재 기준과의 차이를 명시합니다.",
+    "communicationTitle": "커뮤니케이션 경계",
+    "communication1": "이 사이트의 모든 내용은 투자 권유가 아닙니다.",
+    "communication2": "수익, 가격, 환금성에 대한 어떠한 보장도 제공하지 않습니다.",
+    "communication3": "스테이킹은 수익 상품이 아니라 네트워크 참여 행위로 안내합니다.",
+    "communication4": "확인되지 않은 정보나 추정은 공식 문서 및 공지에서 사실로 단정하지 않습니다.",
+    "servicesTitle": "XPChain과 응용 서비스",
+    "services1": "SmartPig는 핵심 개발이 대부분 완료되었고, XRoutine은 현재 개발 중입니다.",
+    "services2": "SmartPig의 XPC 결제 연동은 크롬 확장프로그램 결제/편의기능 업데이트 이후 적용할 예정입니다.",
+    "services3": "XPChain은 특정 서비스에 종속되지 않으며, 여러 응용이 연결될 수 있는 독립 네트워크로 존재합니다."
+  },
+  "notices": {
+    "srTitle": "공지",
+    "title": "공지",
+    "subtitle": "운영 업데이트와 변경 내역을 공유합니다.",
+    "items": [
+      "문서 페이지에 \"히스토리 + 현재 운영 범위\" 공개 기준 문구를 게시했습니다.",
+      "문서 페이지에 v0.17.0-4 릴리스 검증 결과(macOS/Linux/Windows x64/x86 PASS)를 반영했습니다.",
+      "블록체인 익스플로러 검색/주소 조회 성능 및 로딩 표시 개선 작업을 완료했습니다.",
+      "문서 페이지에 XPC 1.0 기술 시리즈 Part 3(체인 사양)를 등록했습니다.",
+      "문서 페이지에 XPC 1.0 기술 시리즈 Part 2(ABPoS)를 등록했습니다.",
+      "문서 페이지에 XPC 1.0 기술 시리즈(Part 1)를 등록했습니다.",
+      "웹사이트 리뉴얼 개발을 시작하고 아키텍처 기준을 확정했습니다.",
+      "네트워크 상태 API(/api/status) 기반 대시보드 구조를 반영했습니다.",
+      "백서 3개 언어 파일을 서버 호스팅으로 전환하고 문서 페이지를 정리했습니다."
+    ]
+  },
+  "roadmap": {
+    "srTitle": "로드맵",
+    "title": "로드맵",
+    "subtitle": "방향성과 실행 항목을 함께 공개합니다.",
+    "directionTitle": "A. 방향 로드맵 (대외 기준)",
+    "directionBody": "XPChain의 로드맵은 단기 이벤트 중심이 아니라, 네트워크 안정성과 지속 가능성을 기준으로 설계됩니다. 과도한 확장보다 분산 구조 강화와 운영 절차 정교화를 우선합니다.",
+    "direction1": "네트워크 안정성 유지",
+    "direction1Items": [
+      "블록 생성 안정성 지속 점검",
+      "노드 연결 상태 모니터링 및 개선",
+      "네트워크 상태 지표 공개 범위 확대",
+      "스테이킹 참여 환경 개선"
+    ],
+    "direction2": "인프라 및 지갑 개선",
+    "direction2Items": [
+      "Qt 지갑 유지보수 및 빌드 안정성 강화",
+      "다중 OS 배포 자동화 유지",
+      "배포 파일 무결성 검증 체계 강화 (SHA-256)",
+      "UTXO 관리 편의성 개선 검토"
+    ],
+    "direction3": "분산 구조 강화",
+    "direction3Items": [
+      "자발적 노드 참여 확대",
+      "스테이킹 참여율 점진적 개선",
+      "블록 생성 분포 모니터링",
+      "운영 의존도 점진적 완화"
+    ],
+    "direction4": "실사용 사례 축적",
+    "direction4Items": [
+      "SmartPig 서비스 운영 안정화 및 결제 연동 준비",
+      "XRoutine 개발 진행 및 단계별 공개",
+      "네트워크를 활용하는 다양한 가능성 연구"
+    ],
+    "direction4Note": "XPChain은 특정 서비스에 종속되지 않으며, 여러 응용이 연결될 수 있는 독립 네트워크로 유지됩니다.",
+    "direction5": "기록과 투명성",
+    "direction5Items": [
+      "릴리즈 기록의 지속적 축적",
+      "합의 변경 사항의 명확한 구분 공지",
+      "운영 문서 및 아카이브 유지",
+      "네트워크 상태의 지속적 공개"
+    ],
+    "directionSummary": "방향성: XPChain은 빠른 변화보다 안정적인 유지와 점진적 개선을 선택하며, 시간을 통해 검증되는 네트워크를 지향합니다.",
+    "executionTitle": "B. 실행 로드맵 (운영 항목)",
+    "executionBody": "아래 항목은 실제 운영/개발 우선순위이며, 검증 결과와 네트워크 상태에 따라 순서가 조정될 수 있습니다.",
+    "now": "Now",
+    "nowItems": [
+      "Windows x64/x86 지갑 최종 동작 검증",
+      "지갑 사용자 가이드(설치/백업/복구) 공개본 정리",
+      "Explorer 상태 갱신/캐시 정책 운영값 미세 조정"
+    ],
+    "next": "Next",
+    "nextItems": [
+      "노드 운영 문서(Ubuntu) 공개본 확정",
+      "공지/문서/릴리즈 업데이트 절차(runbook) 표준화",
+      "지갑/릴리즈 검증 체크리스트 정기 운영"
+    ],
+    "later": "Later",
+    "laterItems": [
+      "Seed 인프라(seed1~seed3) 운영 정책 확정 및 적용",
+      "로드맵/철학/공지 연동 구조 및 업데이트 주기 고정",
+      "운영 지표 공개 항목 고도화"
+    ],
+    "disclaimer": "본 로드맵은 운영 기준 문서이며 투자 판단 자료가 아닙니다. 일정은 네트워크 안정성과 검증 결과를 기준으로 조정될 수 있습니다."
+  }
+}
