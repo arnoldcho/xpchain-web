@@ -5,6 +5,11 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.xpchain.co.kr'),
+  verification: {
+    other: {
+      'naver-site-verification': 'a741f75b930241bc082a83ddbe5bb71aacd55281'
+    }
+  },
   icons: {
     icon: [
       { url: '/favicon-32.png', sizes: '32x32', type: 'image/png' },

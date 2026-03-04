@@ -63,3 +63,14 @@
 - [x] 모바일/데스크톱 공통 정보 접근 동선 정리
 - [x] Roadmap `더보기` 메뉴 반영
 - [x] 기존 `/transparency` 경로 유지/리다이렉트 정책 최종 확정 (`/philosophy`로 이동)
+
+## 9) SEO/검색콘솔 운영 체크리스트
+
+- [x] `/sitemap.xml`, `/robots.txt` 응답 확인
+- [x] 네이버 사이트 검증 메타 태그 적용 (`naver-site-verification`)
+- [ ] Google Search Console 사이트맵 제출 (`https://www.xpchain.co.kr/sitemap.xml`)
+- [ ] 네이버 서치어드바이저 사이트맵 제출 (`https://www.xpchain.co.kr/sitemap.xml`)
+- [ ] 대표 페이지 3개 언어(ko/en/ja) 인덱싱 요청 (홈/지갑/스테이킹/문서)
+- [ ] canonical/hreflang 수동 점검 (중복/누락 없음)
+- [ ] 구조화 데이터(JSON-LD) 적용 여부 최종 결정 (Organization, WebSite, Breadcrumb)
+- [ ] 색인/크롤링 모니터링 루틴 정리 (주 1회: 색인 범위, 크롤링 오류, 모바일 사용성)
