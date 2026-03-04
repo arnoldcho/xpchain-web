@@ -9,7 +9,7 @@ import { localeToBCP47, locales, type Locale } from '@/lib/i18n/locales';
 
 type Props = {
   children: ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 };
 
 export function generateStaticParams() {
@@ -17,11 +17,12 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Pick<Props, 'params'>): Promise<Metadata> {
-  if (!locales.includes(params.locale as Locale)) {
+  const { locale: rawLocale } = await params;
+  if (!locales.includes(rawLocale as Locale)) {
     return {};
   }
 
-  const locale = params.locale as Locale;
+  const locale = rawLocale as Locale;
   const t = await getTranslations({ locale, namespace: 'metadata' });
 
   return {
@@ -40,11 +41,12 @@ export async function generateMetadata({ params }: Pick<Props, 'params'>): Promi
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
-  if (!locales.includes(params.locale as Locale)) {
+  const { locale: rawLocale } = await params;
+  if (!locales.includes(rawLocale as Locale)) {
     notFound();
   }
 
-  const locale = params.locale as Locale;
+  const locale = rawLocale as Locale;
   setRequestLocale(locale);
   const messages = await getMessages();
   const t = await getTranslations({ locale });
