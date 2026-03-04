@@ -6,23 +6,25 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'community' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'community' });
   return {
     title: t('title'),
     description: t('subtitle'),
     alternates: {
-      canonical: buildLocalePath(params.locale, '/community'),
+      canonical: buildLocalePath(locale, '/community'),
       languages: buildAlternates('/community')
     }
   };
 }
 
 export default async function LocalizedCommunityPage({ params }: Props) {
-  const t = await getTranslations({ locale: params.locale, namespace: 'community' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'community' });
 
   return (
     <>

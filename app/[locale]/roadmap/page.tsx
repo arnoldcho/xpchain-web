@@ -5,16 +5,17 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'roadmap' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'roadmap' });
   return {
     title: t('title'),
     description: t('subtitle'),
     alternates: {
-      canonical: buildLocalePath(params.locale, '/roadmap'),
+      canonical: buildLocalePath(locale, '/roadmap'),
       languages: buildAlternates('/roadmap')
     }
   };
@@ -31,7 +32,8 @@ function RoadmapList({ items }: { items: string[] }) {
 }
 
 export default async function LocalizedRoadmapPage({ params }: Props) {
-  const t = await getTranslations({ locale: params.locale, namespace: 'roadmap' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'roadmap' });
 
   return (
     <>

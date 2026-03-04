@@ -1,6 +1,7 @@
 import { redirect } from '@/i18n/navigation';
 import type { Locale } from '@/lib/i18n/locales';
 
-export default function LocalizedTransparencyRedirect({ params }: { params: { locale: Locale } }) {
-  redirect({ href: '/philosophy', locale: params.locale });
+export default async function LocalizedTransparencyRedirect({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
+  redirect({ href: '/philosophy', locale });
 }

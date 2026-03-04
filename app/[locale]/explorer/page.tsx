@@ -12,23 +12,24 @@ import { buildAlternates, buildLocalePath } from '@/lib/seo';
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'explorer' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'explorer' });
   return {
     title: t('title'),
     description: t('subtitle'),
     alternates: {
-      canonical: buildLocalePath(params.locale, '/explorer'),
+      canonical: buildLocalePath(locale, '/explorer'),
       languages: buildAlternates('/explorer')
     }
   };
 }
 
 export default async function LocalizedExplorerPage({ params }: Props) {
-  const { locale } = params;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'explorer' });
   const [status, explorerDbStatus] = await Promise.all([getNetworkStatus(), getExplorerDbStatus()]);
 

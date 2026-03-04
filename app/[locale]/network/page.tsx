@@ -11,23 +11,24 @@ import { buildAlternates, buildLocalePath } from '@/lib/seo';
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'network' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'network' });
   return {
     title: t('title'),
     description: t('subtitle'),
     alternates: {
-      canonical: buildLocalePath(params.locale, '/network'),
+      canonical: buildLocalePath(locale, '/network'),
       languages: buildAlternates('/network')
     }
   };
 }
 
 export default async function LocalizedNetworkPage({ params }: Props) {
-  const { locale } = params;
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'network' });
   const status = await getNetworkStatus();
   const sourceLabel = status.dataSource === 'rpc' ? t('rpcSource') : t('fallbackSource');

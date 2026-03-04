@@ -5,7 +5,7 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 type StakingCopy = {
@@ -187,19 +187,21 @@ const copyByLocale: Record<Locale, StakingCopy> = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale });
   const title = t('nav.primary.staking');
   return {
     title,
     alternates: {
-      canonical: buildLocalePath(params.locale, '/staking'),
+      canonical: buildLocalePath(locale, '/staking'),
       languages: buildAlternates('/staking')
     }
   };
 }
 
-export default function LocalizedStakingPage({ params }: Props) {
-  const c = copyByLocale[params.locale];
+export default async function LocalizedStakingPage({ params }: Props) {
+  const { locale } = await params;
+  const c = copyByLocale[locale];
 
   return (
     <>

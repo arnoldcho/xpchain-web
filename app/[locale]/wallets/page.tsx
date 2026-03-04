@@ -7,7 +7,7 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 type WalletCopy = {
@@ -277,20 +277,22 @@ const walletCopy: Record<Locale, WalletCopy> = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale });
   const title = t('nav.primary.wallets');
   return {
     title,
     alternates: {
-      canonical: buildLocalePath(params.locale, '/wallets'),
+      canonical: buildLocalePath(locale, '/wallets'),
       languages: buildAlternates('/wallets')
     }
   };
 }
 
-export default function LocalizedWalletsPage({ params }: Props) {
-  const c = walletCopy[params.locale];
-  const sourcePath = `/${params.locale}/wallets`;
+export default async function LocalizedWalletsPage({ params }: Props) {
+  const { locale } = await params;
+  const c = walletCopy[locale];
+  const sourcePath = `/${locale}/wallets`;
 
   return (
     <>
@@ -351,7 +353,7 @@ export default function LocalizedWalletsPage({ params }: Props) {
             <p className="mt-1 break-all">{c.commandMac}: <span className="text-text">{`shasum -a 256 ${c.verifyFileName}`}</span></p>
             <p className="mt-1 break-all">{c.commandLinux}: <span className="text-text">{`sha256sum ${c.verifyFileName}`}</span></p>
             <p className="mt-2">
-              {c.checklistPrefix}: <a href={`/${params.locale}/docs/wallet-release-checklist`} className="text-accent">{c.checklistLink}</a>
+              {c.checklistPrefix}: <a href={`/${locale}/docs/wallet-release-checklist`} className="text-accent">{c.checklistLink}</a>
             </p>
           </div>
         </div>

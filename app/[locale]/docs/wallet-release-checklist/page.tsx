@@ -4,7 +4,7 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 type ChecklistCopy = {
@@ -101,17 +101,19 @@ const copyByLocale: Record<Locale, ChecklistCopy> = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Wallet Release Checklist',
     alternates: {
-      canonical: buildLocalePath(params.locale, '/docs/wallet-release-checklist'),
+      canonical: buildLocalePath(locale, '/docs/wallet-release-checklist'),
       languages: buildAlternates('/docs/wallet-release-checklist')
     }
   };
 }
 
-export default function LocalizedWalletReleaseChecklistPage({ params }: Props) {
-  const c = copyByLocale[params.locale];
+export default async function LocalizedWalletReleaseChecklistPage({ params }: Props) {
+  const { locale } = await params;
+  const c = copyByLocale[locale];
 
   return (
     <>

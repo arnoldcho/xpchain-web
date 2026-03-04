@@ -5,7 +5,7 @@ import OriginalPage from '../../../../docs/xpc-1-0/part-2/page';
 import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
-type Props = { params: { locale: Locale } };
+type Props = { params: Promise<{ locale: Locale }> };
 
 type PartCopy = {
   srTitle: string;
@@ -85,21 +85,23 @@ const copyByLocale: Record<Exclude<Locale, 'ko'>, PartCopy> = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'XPC 1.0 Part 2',
     alternates: {
-      canonical: buildLocalePath(params.locale, '/docs/xpc-1-0/part-2'),
+      canonical: buildLocalePath(locale, '/docs/xpc-1-0/part-2'),
       languages: buildAlternates('/docs/xpc-1-0/part-2')
     }
   };
 }
 
-export default function LocalizedXpcPartTwoPage({ params }: Props) {
-  if (params.locale === 'ko') {
+export default async function LocalizedXpcPartTwoPage({ params }: Props) {
+  const { locale } = await params;
+  if (locale === 'ko') {
     return <OriginalPage />;
   }
 
-  const c = copyByLocale[params.locale];
+  const c = copyByLocale[locale];
 
   return (
     <>

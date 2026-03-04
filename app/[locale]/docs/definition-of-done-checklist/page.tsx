@@ -4,7 +4,7 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 type DoDCopy = {
@@ -92,17 +92,19 @@ const copyByLocale: Record<Locale, DoDCopy> = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'Definition of Done Checklist',
     alternates: {
-      canonical: buildLocalePath(params.locale, '/docs/definition-of-done-checklist'),
+      canonical: buildLocalePath(locale, '/docs/definition-of-done-checklist'),
       languages: buildAlternates('/docs/definition-of-done-checklist')
     }
   };
 }
 
-export default function LocalizedDefinitionOfDonePage({ params }: Props) {
-  const c = copyByLocale[params.locale];
+export default async function LocalizedDefinitionOfDonePage({ params }: Props) {
+  const { locale } = await params;
+  const c = copyByLocale[locale];
 
   return (
     <>

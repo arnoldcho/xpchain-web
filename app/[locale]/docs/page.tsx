@@ -6,7 +6,7 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 type DocsCopy = {
@@ -210,20 +210,22 @@ const docsCopy: Record<Locale, DocsCopy> = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale });
   const title = t('nav.more.docs');
   return {
     title,
     alternates: {
-      canonical: buildLocalePath(params.locale, '/docs'),
+      canonical: buildLocalePath(locale, '/docs'),
       languages: buildAlternates('/docs')
     }
   };
 }
 
-export default function LocalizedDocsPage({ params }: Props) {
-  const c = docsCopy[params.locale];
-  const base = `/${params.locale}`;
+export default async function LocalizedDocsPage({ params }: Props) {
+  const { locale } = await params;
+  const c = docsCopy[locale];
+  const base = `/${locale}`;
 
   return (
     <>

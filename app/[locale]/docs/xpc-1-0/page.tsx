@@ -5,7 +5,7 @@ import type { Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 type SeriesItem = { href: string; title: string; description: string };
@@ -77,21 +77,23 @@ const copyByLocale: Record<Exclude<Locale, 'ko'>, Copy> = {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: 'XPC 1.0 Series',
     alternates: {
-      canonical: buildLocalePath(params.locale, '/docs/xpc-1-0'),
+      canonical: buildLocalePath(locale, '/docs/xpc-1-0'),
       languages: buildAlternates('/docs/xpc-1-0')
     }
   };
 }
 
-export default function LocalizedXpcSeriesPage({ params }: Props) {
-  if (params.locale === 'ko') {
+export default async function LocalizedXpcSeriesPage({ params }: Props) {
+  const { locale } = await params;
+  if (locale === 'ko') {
     return <OriginalPage />;
   }
 
-  const c = copyByLocale[params.locale];
+  const c = copyByLocale[locale];
 
   return (
     <>

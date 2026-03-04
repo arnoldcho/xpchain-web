@@ -7,23 +7,25 @@ import { buildAlternates, buildLocalePath } from '@/lib/seo';
 const noticeDates = ['2026-02-27', '2026-02-26', '2026-02-26', '2026-02-25', '2026-02-25', '2026-02-24', '2026-02-24', '2026-02-24', '2026-02-24'];
 
 type Props = {
-  params: { locale: Locale };
+  params: Promise<{ locale: Locale }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'notices' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'notices' });
   return {
     title: t('title'),
     description: t('subtitle'),
     alternates: {
-      canonical: buildLocalePath(params.locale, '/notices'),
+      canonical: buildLocalePath(locale, '/notices'),
       languages: buildAlternates('/notices')
     }
   };
 }
 
 export default async function LocalizedNoticesPage({ params }: Props) {
-  const t = await getTranslations({ locale: params.locale, namespace: 'notices' });
+  const { locale } = await params;
+  const t = await getTranslations({ locale: locale, namespace: 'notices' });
 
   return (
     <>
