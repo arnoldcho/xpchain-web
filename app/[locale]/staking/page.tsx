@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Section } from '@/components/Section';
-import type { Locale } from '@/lib/i18n/locales';
+import { isLocale, type Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 type StakingCopy = {
@@ -188,6 +189,9 @@ const copyByLocale: Record<Locale, StakingCopy> = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale: locale });
   const title = t('nav.primary.staking');
   return {
@@ -201,6 +205,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedStakingPage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   const c = copyByLocale[locale];
 
   return (

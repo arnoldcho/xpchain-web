@@ -1,15 +1,19 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Section } from '@/components/Section';
-import type { Locale } from '@/lib/i18n/locales';
+import { isLocale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale: locale, namespace: 'build' });
   return {
     title: t('title'),
@@ -23,6 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedBuildPage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   const t = await getTranslations({ locale: locale, namespace: 'build' });
 
   return (

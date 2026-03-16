@@ -1,21 +1,25 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { NetworkChart } from '@/components/NetworkChart';
 import { Section } from '@/components/Section';
 import { StatusCard } from '@/components/StatusCard';
 import { formatDateTime, formatNumber, formatPercent, formatSeconds } from '@/lib/format';
-import { localeToBCP47, type Locale } from '@/lib/i18n/locales';
+import { isLocale, localeToBCP47 } from '@/lib/i18n/locales';
 import { getNetworkStatus } from '@/lib/rpc';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale: locale, namespace: 'network' });
   return {
     title: t('title'),
@@ -29,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedNetworkPage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   const t = await getTranslations({ locale, namespace: 'network' });
   const status = await getNetworkStatus();
   const sourceLabel = status.dataSource === 'rpc' ? t('rpcSource') : t('fallbackSource');

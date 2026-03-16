@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { Section } from '@/components/Section';
 import OriginalPage from '../../../docs/xpc-1-0/page';
-import type { Locale } from '@/lib/i18n/locales';
+import { isLocale, type Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 type SeriesItem = { href: string; title: string; description: string };
@@ -78,6 +79,9 @@ const copyByLocale: Record<Exclude<Locale, 'ko'>, Copy> = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   return {
     title: 'XPC 1.0 Series',
     alternates: {
@@ -89,6 +93,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedXpcSeriesPage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   if (locale === 'ko') {
     return <OriginalPage />;
   }

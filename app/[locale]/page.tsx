@@ -1,21 +1,25 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Section } from '@/components/Section';
 import { StatusCard } from '@/components/StatusCard';
 import { Link } from '@/i18n/navigation';
 import { formatNumber, formatSeconds } from '@/lib/format';
-import { localeToBCP47, type Locale } from '@/lib/i18n/locales';
+import { isLocale, localeToBCP47 } from '@/lib/i18n/locales';
 import { getNetworkStatus } from '@/lib/rpc';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale: locale, namespace: 'metadata' });
   return {
     title: t('siteTitle'),
@@ -29,6 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedHomePage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   const t = await getTranslations({ locale, namespace: 'home' });
   const status = await getNetworkStatus();
 

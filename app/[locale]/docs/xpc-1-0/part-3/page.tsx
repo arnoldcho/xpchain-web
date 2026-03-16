@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import { Section } from '@/components/Section';
 import OriginalPage from '../../../../docs/xpc-1-0/part-3/page';
-import type { Locale } from '@/lib/i18n/locales';
+import { isLocale, type Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
-type Props = { params: Promise<{ locale: Locale }> };
+type Props = { params: Promise<{ locale: string }> };
 
 type PartCopy = {
   srTitle: string;
@@ -98,6 +99,9 @@ const copyByLocale: Record<Exclude<Locale, 'ko'>, PartCopy> = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   return {
     title: 'XPC 1.0 Part 3',
     alternates: {
@@ -109,6 +113,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedXpcPartThreePage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   if (locale === 'ko') {
     return <OriginalPage />;
   }

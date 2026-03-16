@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { Section } from '@/components/Section';
-import type { Locale } from '@/lib/i18n/locales';
+import { isLocale, type Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 type DoDCopy = {
@@ -93,6 +94,9 @@ const copyByLocale: Record<Locale, DoDCopy> = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   return {
     title: 'Definition of Done Checklist',
     alternates: {
@@ -104,6 +108,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedDefinitionOfDonePage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   const c = copyByLocale[locale];
 
   return (

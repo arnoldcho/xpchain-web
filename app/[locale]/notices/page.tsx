@@ -1,17 +1,21 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Section } from '@/components/Section';
-import type { Locale } from '@/lib/i18n/locales';
+import { isLocale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
 const noticeDates = ['2026-03-04', '2026-03-04', '2026-03-04', '2026-03-03', '2026-03-03', '2026-02-26', '2026-02-26', '2026-02-25', '2026-02-24'];
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale: locale, namespace: 'notices' });
   return {
     title: t('title'),
@@ -25,6 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedNoticesPage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   const t = await getTranslations({ locale: locale, namespace: 'notices' });
 
   return (

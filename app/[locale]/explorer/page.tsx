@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Section } from '@/components/Section';
 import { ExplorerRealtimeStatus } from '@/components/ExplorerRealtimeStatus';
 import { TrackedLink } from '@/components/TrackedLink';
 import { getExplorerDbStatus } from '@/lib/explorer-db';
-import { localeToBCP47, type Locale } from '@/lib/i18n/locales';
+import { isLocale, localeToBCP47 } from '@/lib/i18n/locales';
 import { links } from '@/lib/links';
 import { getNetworkStatus } from '@/lib/rpc';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
@@ -12,11 +13,14 @@ import { buildAlternates, buildLocalePath } from '@/lib/seo';
 export const dynamic = 'force-dynamic';
 
 type Props = {
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    return {};
+  }
   const t = await getTranslations({ locale: locale, namespace: 'explorer' });
   return {
     title: t('title'),
@@ -30,6 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LocalizedExplorerPage({ params }: Props) {
   const { locale } = await params;
+  if (!isLocale(locale)) {
+    notFound();
+  }
   const t = await getTranslations({ locale, namespace: 'explorer' });
   const [status, explorerDbStatus] = await Promise.all([getNetworkStatus(), getExplorerDbStatus()]);
 
