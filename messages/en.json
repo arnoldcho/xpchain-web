@@ -157,6 +157,9 @@
     "title": "Notices",
     "subtitle": "Operational updates and change history.",
     "items": [
+      "Updated the web wallet and Chrome extension (v1.0.3) to link transactions to the primary explorer (explorer.xpchain.co.kr).",
+      "Improved wallet stability by fixing a rescanblockchain timeout that occurred on heavier wallets.",
+      "Patched all website dependency security vulnerabilities and strengthened defenses against bot/scanner traffic.",
       "Officially launched the XPChain website. (ko/en/ja, Network/Wallets/Staking/Explorer/Docs live)",
       "Completed Google Search Console and Naver Search Advisor registration with sitemap submission.",
       "Applied locale-path rewrite for robots/sitemap to improve Naver crawler compatibility.",

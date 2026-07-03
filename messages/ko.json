@@ -157,6 +157,9 @@
     "title": "공지",
     "subtitle": "운영 업데이트와 변경 내역을 공유합니다.",
     "items": [
+      "웹 지갑과 크롬 확장 프로그램(v1.0.3)의 트랜잭션 링크를 메인 익스플로러(explorer.xpchain.co.kr)로 연결하도록 개선했습니다.",
+      "무거운 지갑에서 발생하던 리스캔(rescanblockchain) 타임아웃 문제를 개선해 지갑 안정성을 높였습니다.",
+      "웹사이트 의존성 보안 취약점을 전면 패치하고, 봇·스캐너 트래픽에 대한 방어를 강화했습니다.",
       "XPChain 공식 사이트를 정식 런칭했습니다. (ko/en/ja, Network/Wallets/Staking/Explorer/Docs 오픈)",
       "Google Search Console 및 Naver Search Advisor 등록과 사이트맵 제출을 완료했습니다.",
       "Naver 수집 경로 대응을 위해 locale 경로 robots/sitemap 리라이트를 적용했습니다.",
