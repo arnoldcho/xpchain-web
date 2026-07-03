@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import OriginalPage from '../../../admin/track/page';
+import OriginalPage from '../../admin/page';
 
 export const metadata: Metadata = {
   robots: {
@@ -14,6 +14,6 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const runtime = 'nodejs';
 
-export default function AdminTrackWrapper({ searchParams }: { searchParams: Promise<SearchParams> }) {
+export default function AdminHomeWrapper({ searchParams }: { searchParams: Promise<SearchParams> }) {
   return <OriginalPage searchParams={searchParams} />;
 }

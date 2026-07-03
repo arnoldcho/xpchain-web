@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { insertTrackEvent, type TrackEventCategory } from '@/lib/analytics-db';
+import { insertTrackEvent, isKnownEventKey, type TrackEventCategory } from '@/lib/analytics-db';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -31,6 +31,10 @@ export async function POST(request: Request) {
     }
     if (!eventKey || eventKey.length > 120) {
       return NextResponse.json({ error: 'Invalid eventKey' }, { status: 400 });
+    }
+    // 알려진 이벤트 키만 허용 — 스캐너 봇의 임의 키 주입으로 통계가 오염되는 것을 원천 차단.
+    if (!isKnownEventKey(category, eventKey)) {
+      return NextResponse.json({ error: 'Unknown eventKey' }, { status: 400 });
     }
     if (!targetUrl || targetUrl.length > 500) {
       return NextResponse.json({ error: 'Invalid targetUrl' }, { status: 400 });
