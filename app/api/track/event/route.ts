@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { insertTrackEvent, isKnownEventKey, type TrackEventCategory } from '@/lib/analytics-db';
+import { clientIp, isAllowedOrigin, isBotUserAgent, isRateLimited } from '@/lib/track-guard';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -20,6 +21,19 @@ function isSafePath(pathValue: string): boolean {
 
 export async function POST(request: Request) {
   try {
+    // 1. 동일 출처(우리 도메인)에서 온 요청만 허용 — 외부 스크립트의 대량 POST 차단.
+    if (!isAllowedOrigin(request.headers.get('origin'), request.headers.get('referer'))) {
+      return NextResponse.json({ error: 'Forbidden origin' }, { status: 403 });
+    }
+    // 2. 봇/자동화 도구 User-Agent 차단.
+    if (isBotUserAgent(request.headers.get('user-agent'))) {
+      return NextResponse.json({ error: 'Bot blocked' }, { status: 403 });
+    }
+    // 3. IP당 레이트 리밋 — 짧은 시간 대량 스팸 차단.
+    if (isRateLimited(clientIp(request.headers.get('x-forwarded-for')))) {
+      return NextResponse.json({ error: 'Rate limited' }, { status: 429 });
+    }
+
     const payload = (await request.json()) as EventPayload;
     const category = payload.category;
     const eventKey = payload.eventKey?.trim();
