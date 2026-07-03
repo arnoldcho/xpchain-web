@@ -3,7 +3,8 @@ module.exports = {
     {
       name: "xpchain-web",
       script: "node_modules/next/dist/bin/next",
-      args: "start -p 3000",
+      // 127.0.0.1 로만 바인딩 → 외부에서 :3000 직접 접근(Nginx 우회) 차단. 앞단 Nginx 만 프록시.
+      args: "start -p 3000 -H 127.0.0.1",
       cwd: "/home/arnold/xpchain-web",
       env: {
         NODE_ENV: "production",

@@ -6,6 +6,7 @@ out
 .env*
 !.env.example
 data/*.sqlite3
+*.tsbuildinfo
 
 # Internal/private docs must stay out of public repository.
 docs/internal/
