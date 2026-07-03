@@ -28,29 +28,42 @@ sudo ss -tlnp | grep ':3000'      # -> 127.0.0.1:3000 (0.0.0.0/* 아니어야 �
 sudo ufw deny 3000
 ```
 
-## 2. Nginx 차단 규칙 추가 (기존 config 에 include)
+## 2. Nginx 차단 규칙 추가 (기존 xpchain-www 블록에 include)
 
-전체 config 를 새로 만들지 않고, 기존 443 server 블록에 스니펫만 끼워넣습니다.
+이 서버는 두 사이트가 공존한다:
+- `sites-enabled/wallet` → wallet.xpchain.co.kr → localhost:3001 (웹월렛, 별도 앱)
+- `sites-enabled/xpchain-www` → xpchain.co.kr / www.xpchain.co.kr → 127.0.0.1:3000 (**이 Next 앱**)
+
+스캐너 트래픽은 xpchain-www(3000) 로 오므로 그 443 server 블록에만 넣는다.
 
 ```bash
-# 스니펫 배치
-sudo cp deploy/nginx-block-scanners.conf /etc/nginx/snippets/xpchain-block-scanners.conf
+# (0) 최신 스니펫 받기
+cd ~/xpchain-web && git pull
 
-# rate limit 존 (http 컨텍스트)
+# (1) 스니펫 + rate limit 존 배치
+sudo cp deploy/nginx-block-scanners.conf /etc/nginx/snippets/xpchain-block-scanners.conf
 echo 'limit_req_zone $binary_remote_addr zone=xpchain_rl:10m rate=20r/s;' \
   | sudo tee /etc/nginx/conf.d/xpchain-ratelimit.conf
 
-# 기존 server { } (443) 안 맨 위에 아래 한 줄 추가:
-#   include /etc/nginx/snippets/xpchain-block-scanners.conf;
-sudoedit /etc/nginx/sites-enabled/<기존파일>     # 또는 nano 등으로 편집
+# (2) 443 server 블록의 server_name 바로 뒤에 include 한 줄 삽입 (백업 .bak 자동 생성).
+#     0,/re/ 주소로 '첫 번째' server_name(=443 블록)에만 넣는다.
+sudo sed -i.bak '0,/server_name xpchain\.co\.kr www\.xpchain\.co\.kr;/s//&\n    include \/etc\/nginx\/snippets\/xpchain-block-scanners.conf;/' \
+  /etc/nginx/sites-available/xpchain-www
 
+# (3) 검증 후 반영
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-동작 확인 — 악성 요청은 연결이 끊기고, 정상 페이지는 200:
+동작 확인 — 악성 요청은 연결이 끊기고(빈 응답), 정상 페이지는 200:
 ```bash
-curl -i "https://your-domain.com/_next/image?url=/xpc-logo.png%27%20AND%201=1"   # -> 빈 응답/연결 종료
-curl -i "https://your-domain.com/"                                                # -> 200
+curl -si "https://www.xpchain.co.kr/_next/image?url=/xpc-logo.png%27%20AND%201=1" | head -1  # -> 비어있음/끊김
+curl -si "https://www.xpchain.co.kr/" | head -1                                              # -> HTTP/2 200
+```
+
+문제가 생기면 즉시 되돌리기:
+```bash
+sudo cp /etc/nginx/sites-available/xpchain-www.bak /etc/nginx/sites-available/xpchain-www
+sudo nginx -t && sudo systemctl reload nginx
 ```
 
 ## 3. fail2ban 설치·적용
