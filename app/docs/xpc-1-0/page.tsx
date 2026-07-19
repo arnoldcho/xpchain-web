@@ -1,3 +1,6 @@
+// 이 파일은 라우트가 아니라 본문 소스다. locale 경로 리다이렉트로 직접 열리지는
+// 않지만 app/[locale]/docs/xpc-1-0/** 가 OriginalPage 로 import 해서 렌더링한다.
+// 같이 있던 다른 non-locale 중복 페이지들과 달리 삭제하면 문서 본문이 사라진다.
 import { Section } from '@/components/Section';
 
 const series = [
