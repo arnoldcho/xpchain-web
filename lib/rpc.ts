@@ -98,7 +98,12 @@ function calculateIntervals(blocks: BlockSummary[]): number[] {
   return intervals;
 }
 
-async function rpcRequest<T>({ method, params = [] }: RpcCall): Promise<T> {
+type RpcPayload<T> = { error: { message?: string } | null; result: T };
+
+// One HTTP round trip per call list. A JSON-RPC batch (array body) lets the
+// 60-block trend window cost 2 requests instead of 122 — the old fan-out
+// overran the node's RPC work queue and blew past the fetch timeout.
+async function rpcSend<T>(calls: RpcCall[]): Promise<T[]> {
   const url = process.env.XPCHAIN_RPC_URL;
   const user = process.env.XPCHAIN_RPC_USER;
   const password = process.env.XPCHAIN_RPC_PASSWORD;
@@ -107,76 +112,90 @@ async function rpcRequest<T>({ method, params = [] }: RpcCall): Promise<T> {
     throw new Error('Missing RPC environment variables.');
   }
 
+  if (calls.length === 0) {
+    return [];
+  }
+
   const timeoutMs = Number(process.env.XPCHAIN_RPC_TIMEOUT_MS ?? DEFAULT_RPC_TIMEOUT_MS);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  const label = calls.length === 1 ? calls[0].method : `${calls[0].method} x${calls.length}`;
+  const isBatch = calls.length > 1;
 
   try {
     const auth = Buffer.from(`${user}:${password}`).toString('base64');
+    const body = calls.map((call, index) => ({
+      jsonrpc: '1.0',
+      id: index,
+      method: call.method,
+      params: call.params ?? []
+    }));
+
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Basic ${auth}`
       },
-      body: JSON.stringify({
-        jsonrpc: '1.0',
-        id: method,
-        method,
-        params
-      }),
+      body: JSON.stringify(isBatch ? body : body[0]),
       cache: 'no-store',
       signal: controller.signal
     });
 
     if (!response.ok) {
-      throw new Error(`RPC request failed: ${method}`);
+      throw new Error(`RPC request failed: ${label} (HTTP ${response.status})`);
     }
 
-    const payload = (await response.json()) as { error: unknown; result: T };
-    if (payload.error) {
-      throw new Error(`RPC returned error for ${method}`);
+    const payload = (await response.json()) as RpcPayload<T> | RpcPayload<T>[];
+    const entries = Array.isArray(payload) ? payload : [payload];
+    if (entries.length !== calls.length) {
+      throw new Error(`RPC returned ${entries.length} results for ${calls.length} calls (${label})`);
     }
 
-    return payload.result;
+    // A batch keeps request order, but ids are authoritative — reorder by them.
+    const ordered = Array.isArray(payload)
+      ? calls.map((_, index) => {
+          const match = (payload as Array<RpcPayload<T> & { id?: number }>).find((entry) => entry.id === index);
+          if (!match) {
+            throw new Error(`RPC batch missing result id=${index} (${label})`);
+          }
+          return match;
+        })
+      : entries;
+
+    return ordered.map((entry, index) => {
+      if (entry.error) {
+        throw new Error(`RPC returned error for ${calls[index].method}: ${entry.error.message ?? 'unknown'}`);
+      }
+      return entry.result;
+    });
+  } catch (error) {
+    // AbortError is a DOMException whose default log dump is ~30 lines of
+    // error-code constants. Collapse it to something readable.
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error(`RPC timeout after ${timeoutMs}ms: ${label}`);
+    }
+    throw error;
   } finally {
     clearTimeout(timeout);
   }
 }
 
-function chunkArray<T>(items: T[], chunkSize: number): T[][] {
-  const chunks: T[][] = [];
-  for (let i = 0; i < items.length; i += chunkSize) {
-    chunks.push(items.slice(i, i + chunkSize));
-  }
-  return chunks;
+async function rpcRequest<T>(call: RpcCall): Promise<T> {
+  const [result] = await rpcSend<T>([call]);
+  return result;
 }
 
 async function getBlockTimesByHeights(heights: number[]): Promise<number[]> {
-  const hashByHeight = new Map<number, string>();
   const timeByHeight = new Map<number, number>();
 
-  for (const chunk of chunkArray(heights, 12)) {
-    const hashes = await Promise.all(chunk.map((height) => rpcRequest<string>({ method: 'getblockhash', params: [height] })));
-    chunk.forEach((height, index) => {
-      hashByHeight.set(height, hashes[index]);
-    });
-  }
+  const hashes = await rpcSend<string>(heights.map((height) => ({ method: 'getblockhash', params: [height] })));
 
-  for (const chunk of chunkArray(heights, 12)) {
-    const headers = await Promise.all(
-      chunk.map((height) => {
-        const hash = hashByHeight.get(height);
-        if (!hash) {
-          throw new Error(`Missing block hash at height=${height}`);
-        }
-        return rpcRequest<BlockSummary>({ method: 'getblockheader', params: [hash] });
-      })
-    );
-    chunk.forEach((height, index) => {
-      timeByHeight.set(height, headers[index].time);
-    });
-  }
+  const headers = await rpcSend<BlockSummary>(hashes.map((hash) => ({ method: 'getblockheader', params: [hash] })));
+
+  heights.forEach((height, index) => {
+    timeByHeight.set(height, headers[index].time);
+  });
 
   return heights.map((height) => {
     const time = timeByHeight.get(height);

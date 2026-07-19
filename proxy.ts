@@ -22,6 +22,22 @@ function isSuspiciousImageRequest(request: NextRequest): boolean {
   return !SAFE_INTERNAL_IMAGE.test(decoded);
 }
 
+// Every route we serve is an ASCII slug. Scanner payloads (SQLi probes,
+// traversal, control chars) never match, so reject them before next-intl
+// turns them into a rewrite.
+const SAFE_PATHNAME = /^\/[A-Za-z0-9\-_/.~]*$/;
+
+function isSuspiciousPathname(pathname: string): boolean {
+  let decoded: string;
+  try {
+    decoded = decodeURIComponent(pathname);
+  } catch {
+    return true; // malformed %-encoding
+  }
+  if (decoded.includes('..')) return true; // path traversal
+  return !SAFE_PATHNAME.test(decoded);
+}
+
 export default function proxy(request: NextRequest) {
   if (request.nextUrl.pathname === '/_next/image') {
     if (isSuspiciousImageRequest(request)) {
@@ -29,6 +45,23 @@ export default function proxy(request: NextRequest) {
     }
     return NextResponse.next();
   }
+
+  const { pathname } = request.nextUrl;
+  if (isSuspiciousPathname(pathname)) {
+    return new NextResponse('Bad Request', { status: 400 });
+  }
+
+  // Every route is an ASCII slug, so a %-escape here is always redundant.
+  // next-intl would answer it with an absolute cross-origin rewrite that Next
+  // then tries to HTTP-proxy back to itself (EPROTO/ECONNREFUSED -> 500);
+  // redirecting to the canonical form keeps the request on the normal path.
+  const canonical = decodeURIComponent(pathname);
+  if (canonical !== pathname) {
+    const target = request.nextUrl.clone();
+    target.pathname = canonical;
+    return NextResponse.redirect(target, 308);
+  }
+
   return intlMiddleware(request);
 }
 
