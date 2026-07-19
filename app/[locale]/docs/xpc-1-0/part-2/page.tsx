@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Section } from '@/components/Section';
-import OriginalPage from '../../../../docs/xpc-1-0/part-2/page';
+import DocumentBody from '@/content/docs/xpc-1-0/part-2';
 import { isLocale, type Locale } from '@/lib/i18n/locales';
 import { buildAlternates, buildLocalePath } from '@/lib/seo';
 
@@ -105,7 +105,7 @@ export default async function LocalizedXpcPartTwoPage({ params }: Props) {
     notFound();
   }
   if (locale === 'ko') {
-    return <OriginalPage />;
+    return <DocumentBody />;
   }
 
   const c = copyByLocale[locale];
