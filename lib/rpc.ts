@@ -250,40 +250,67 @@ async function getStatusFromRpc(): Promise<NetworkStatus> {
   };
 }
 
-function buildFallbackStatusWithLog(error: unknown): NetworkStatus {
+// When the node is down every uncached request retried it, and each failure
+// bubbled out of unstable_cache as a multi-line stack dump. One dead node
+// could fill the pm2 log. Hold the failure for a short window instead: serve
+// the fallback immediately and only probe the node once per window.
+const RPC_BREAKER_MS = 30_000;
+let breakerOpenUntil = 0;
+let breakerLoggedAt = 0;
+
+function noteRpcFailure(error: unknown): void {
+  const now = Date.now();
+  breakerOpenUntil = now + RPC_BREAKER_MS;
+
+  // One line per breaker window, not per request.
+  if (now - breakerLoggedAt < RPC_BREAKER_MS) {
+    return;
+  }
+  breakerLoggedAt = now;
+
   try {
     const message = error instanceof Error ? error.message : String(error);
     console.error(
-      `[network-status] fallback due to RPC error: ${message} | hasUrl=${Boolean(process.env.XPCHAIN_RPC_URL)} hasUser=${Boolean(process.env.XPCHAIN_RPC_USER)} hasPassword=${Boolean(process.env.XPCHAIN_RPC_PASSWORD)} cwd=${process.cwd()}`
+      `[network-status] fallback due to RPC error: ${message} | retrying in ${RPC_BREAKER_MS / 1000}s | hasUrl=${Boolean(process.env.XPCHAIN_RPC_URL)} hasUser=${Boolean(process.env.XPCHAIN_RPC_USER)} hasPassword=${Boolean(process.env.XPCHAIN_RPC_PASSWORD)} cwd=${process.cwd()}`
     );
   } catch {
     // keep fallback path resilient
   }
+}
 
+function buildFallbackStatus(): NetworkStatus {
   return {
     ...mockStatus,
     generatedAt: new Date().toISOString()
   };
 }
 
-const getCachedRpcStatus = unstable_cache(
-  async () => getStatusFromRpc(),
-  ['network-status'],
-  { revalidate: NETWORK_STATUS_CACHE_SECONDS }
-);
+// Never throws: returning the fallback keeps the error from escaping into
+// Next's cache-revalidation logging, which is what produced the stack spam.
+async function getStatusOrFallback(): Promise<NetworkStatus> {
+  if (Date.now() < breakerOpenUntil) {
+    return buildFallbackStatus();
+  }
 
-export async function getNetworkStatus(): Promise<NetworkStatus> {
   try {
-    return await getCachedRpcStatus();
+    const status = await getStatusFromRpc();
+    breakerOpenUntil = 0;
+    breakerLoggedAt = 0;
+    return status;
   } catch (error) {
-    return buildFallbackStatusWithLog(error);
+    noteRpcFailure(error);
+    return buildFallbackStatus();
   }
 }
 
+const getCachedRpcStatus = unstable_cache(getStatusOrFallback, ['network-status'], {
+  revalidate: NETWORK_STATUS_CACHE_SECONDS
+});
+
+export async function getNetworkStatus(): Promise<NetworkStatus> {
+  return getCachedRpcStatus();
+}
+
 export async function getLiveNetworkStatus(): Promise<NetworkStatus> {
-  try {
-    return await getStatusFromRpc();
-  } catch (error) {
-    return buildFallbackStatusWithLog(error);
-  }
+  return getStatusOrFallback();
 }

@@ -50,12 +50,37 @@ async function fetchWithTimeout(url, timeoutMs) {
   }
 }
 
+/**
+ * A dead RPC node still yields HTTP 200 — the endpoints answer with mock
+ * numbers and dataSource "fallback". Status-code-only checks reported healthy
+ * the whole time the node was down, so inspect the payload too.
+ */
+function findFallbackSource(payload) {
+  if (!payload || typeof payload !== "object") return false;
+  if (payload.dataSource === "fallback") return true;
+  return Object.values(payload).some(
+    (value) => value && typeof value === "object" && findFallbackSource(value)
+  );
+}
+
 async function checkEndpoints() {
   for (const path of STATUS_PATHS) {
     const url = new URL(path, BASE_URL).toString();
     const response = await fetchWithTimeout(url, HTTP_TIMEOUT_MS);
     if (!response.ok) {
       throw new Error(`HTTP ${response.status} at ${url}`);
+    }
+
+    const body = await response.text();
+    let payload;
+    try {
+      payload = JSON.parse(body);
+    } catch {
+      continue; // non-JSON endpoint: the status code is all we can assert
+    }
+
+    if (findFallbackSource(payload)) {
+      throw new Error(`serving fallback data (RPC node unreachable) at ${url}`);
     }
   }
 }
