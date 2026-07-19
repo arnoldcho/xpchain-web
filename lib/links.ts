@@ -26,7 +26,6 @@ export const links = {
   walletWeb: 'https://wallet.xpchain.co.kr',
   walletExtension: 'https://chromewebstore.google.com/detail/xpchain-web-wallet/pkaafofiinkaopdaiiamcbpplkfobdpm',
   explorerPrimary: 'https://explorer.xpchain.co.kr/',
-  explorerFallback: 'https://scan.xpchain.co.kr/',
   whitepaperEn: '/whitepaper/xpchain-whitepaper-en.pdf',
   whitepaperKr: '/whitepaper/xpchain-whitepaper-ko.pdf',
   whitepaperJp: '/whitepaper/xpchain-whitepaper-ja.pdf',

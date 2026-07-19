@@ -62,8 +62,10 @@ export const EVENT_KEY_CATEGORY: Record<string, TrackEventCategory> = {
   wallet_release_stable_legacy: 'wallet_download',
   wallet_web: 'wallet_download',
   wallet_chrome_extension: 'wallet_download',
-  explorer_primary: 'explorer_outbound',
-  explorer_fallback: 'explorer_outbound'
+  explorer_primary: 'explorer_outbound'
+  // explorer_fallback 은 백업 익스플로러(scan.xpchain.co.kr) 종료로 링크가
+  // 사라져 신규 수집 대상에서 제외한다. 과거 집계 행을 표시하려면 라벨은
+  // 필요하므로 EVENT_LABELS 에는 그대로 둔다.
 };
 
 export function isKnownEventKey(category: TrackEventCategory, eventKey: string): boolean {

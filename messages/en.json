@@ -89,9 +89,7 @@
   "explorer": {
     "srTitle": "Explorer",
     "title": "Explorer",
-    "subtitle": "Primary and backup explorer URLs for blocks and transactions.",
-    "primary": "Primary",
-    "fallback": "Backup",
+    "subtitle": "Provides the explorer address for browsing blocks and transactions.",
     "dataRef": "Data source: /api/status (up to 1-minute cache, last block time / average block interval / node health)",
     "status": {
       "inspectTitle": "Check Required",
@@ -157,6 +155,8 @@
     "title": "Notices",
     "subtitle": "Operational updates and change history.",
     "items": [
+      "Retired the backup explorer server (scan.xpchain.co.kr). Explorer access is now consolidated at explorer.xpchain.co.kr.",
+      "Improved network status query performance, and the site now keeps showing the last confirmed data if the node connection drops temporarily.",
       "Updated the web wallet and Chrome extension (v1.0.3) to link transactions to the primary explorer (explorer.xpchain.co.kr).",
       "Improved wallet stability by fixing a rescanblockchain timeout that occurred on heavier wallets.",
       "Patched all website dependency security vulnerabilities and strengthened defenses against bot/scanner traffic.",

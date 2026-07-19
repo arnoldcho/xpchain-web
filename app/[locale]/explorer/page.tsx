@@ -66,7 +66,6 @@ export default async function LocalizedExplorerPage({ params }: Props) {
             }}
           />
           <p>
-            {t('primary')}:{' '}
             <TrackedLink
               href={links.explorerPrimary}
               target="_blank"
@@ -76,19 +75,6 @@ export default async function LocalizedExplorerPage({ params }: Props) {
               sourcePath={`/${locale}/explorer`}
             >
               explorer.xpchain.co.kr
-            </TrackedLink>
-          </p>
-          <p>
-            {t('fallback')}:{' '}
-            <TrackedLink
-              href={links.explorerFallback}
-              target="_blank"
-              className="text-accent"
-              category="explorer_outbound"
-              eventKey="explorer_fallback"
-              sourcePath={`/${locale}/explorer`}
-            >
-              scan.xpchain.co.kr
             </TrackedLink>
           </p>
           <p className="text-mute">{t('dataRef')}</p>
