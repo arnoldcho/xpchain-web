@@ -278,9 +278,26 @@ function noteRpcFailure(error: unknown): void {
   }
 }
 
+// Last status actually read from the node, kept so an outage shows real (if
+// stale) numbers instead of the invented mockStatus figures.
+let lastGoodStatus: NetworkStatus | null = null;
+
 function buildFallbackStatus(): NetworkStatus {
+  if (lastGoodStatus) {
+    return {
+      ...lastGoodStatus,
+      // generatedAt stays at the real fetch time — the UI renders it as
+      // "갱신 시각", so refreshing it here would date-stamp stale numbers as
+      // current. dataSource/nodeHealth mark the data as not live.
+      dataSource: 'fallback',
+      nodeHealth: 'degraded'
+    };
+  }
+
+  // Nothing read yet this process (e.g. restarted while the node was down).
   return {
     ...mockStatus,
+    nodeHealth: 'degraded',
     generatedAt: new Date().toISOString()
   };
 }
@@ -296,6 +313,7 @@ async function getStatusOrFallback(): Promise<NetworkStatus> {
     const status = await getStatusFromRpc();
     breakerOpenUntil = 0;
     breakerLoggedAt = 0;
+    lastGoodStatus = status;
     return status;
   } catch (error) {
     noteRpcFailure(error);
